@@ -93,11 +93,28 @@ const Test = () => {
   };
 
   return (
-    <div>
-      <button onClick={toggleCamera}>
-        {isCameraOn ? 'Turn Off Camera' : 'Turn On Camera'}
+    <div
+      style={{
+        width: '100vw',
+        height: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <video
+        style={{ width: '400px', height: '400px', border: '2px solid black' }}
+        ref={videoRef}
+        autoPlay
+        playsInline
+      />
+      <button
+        onClick={toggleCamera}
+        style={{ marginTop: '20px', width: '300px', height: '50px' }}
+      >
+        {isCameraOn ? '카메라 끄기' : '카메라 켜기'}
       </button>
-      <video ref={videoRef} autoPlay playsInline />
     </div>
   );
 };
