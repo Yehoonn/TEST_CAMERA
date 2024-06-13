@@ -259,6 +259,7 @@ const Test = () => {
         <button
           style={{
             marginTop: '20px',
+            zIndex: 9999,
           }}
           onClick={openMobileCam}
           type="button"
