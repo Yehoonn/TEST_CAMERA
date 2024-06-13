@@ -103,8 +103,8 @@ const Test = () => {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    width: '85%',
-    height: '250px',
+    width: '100vw',
+    height: '350px',
     background: `
       linear-gradient(to right, #21005D 4px, transparent 4px) 0 0,
       linear-gradient(to right, #21005D 4px, transparent 4px) 0 100%,
@@ -177,14 +177,14 @@ const Test = () => {
               <video
                 ref={videoRef}
                 autoPlay
-                style={{ width: '90%', height: '95%' }}
+                style={{ width: '100%', height: '100%' }}
               ></video>
             </div>
             <canvas
               ref={canvasRef}
               style={{ display: 'none' }}
-              width="640"
-              height="480"
+              width="100%"
+              height="100%"
             ></canvas>
           </div>
         </article>
