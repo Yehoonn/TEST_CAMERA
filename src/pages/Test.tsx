@@ -196,7 +196,22 @@ const Test = () => {
   //   const interval = setInterval(detectObjectInBox, 1000); // 1초 간격으로 감지
   //   return () => clearInterval(interval);
   // }, [detectObjectInBox]);
+
   const [numberOfCameras, setNumberOfCameras] = useState(0);
+  const [activeDeviceId, setActiveDeviceId] = useState<string | undefined>(
+    undefined,
+  );
+
+  useEffect(() => {
+    (async () => {
+      const devices = await navigator.mediaDevices.enumerateDevices();
+      const videoDevices = devices.filter((i) => i.kind == 'videoinput');
+      setDevices(videoDevices);
+    })();
+  });
+
+  const [devices, setDevices] = useState<MediaDeviceInfo[]>([]);
+
   return (
     <div
       style={{
@@ -211,6 +226,17 @@ const Test = () => {
         className="header"
         style={{ display: 'flex', marginTop: '50px', flexDirection: 'column' }}
       >
+        <select
+          onChange={(event) => {
+            setActiveDeviceId(event.target.value);
+          }}
+        >
+          {devices.map((d) => (
+            <option key={d.deviceId} value={d.deviceId}>
+              {d.label}
+            </option>
+          ))}
+        </select>
         <button
           style={{
             height: '50px',
@@ -290,10 +316,11 @@ const Test = () => {
             }}
           >
             <Camera
+              videoSourceDeviceId={activeDeviceId}
               ref={camera}
               facingMode="environment"
-              aspectRatio={16 / 9}
-              numberOfCamerasCallback={setNumberOfCameras}
+              aspectRatio="cover"
+              numberOfCamerasCallback={(i) => setNumberOfCameras(i)}
               errorMessages={{}}
             />
           </div>
