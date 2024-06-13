@@ -205,7 +205,6 @@ const Test = () => {
               screenshotFormat="image/jpeg"
               videoConstraints={videoConstraints}
               style={{
-                transform: 'rotate(90deg)',
                 transformOrigin: 'center center',
               }}
             />
