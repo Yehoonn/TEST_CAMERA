@@ -249,15 +249,16 @@ const Test = () => {
               ref={webcamRef}
               audio={false}
               screenshotFormat="image/jpeg"
+              screenshotQuality={1.3}
               videoConstraints={{
-                width: 1920,
-                height: 1080,
+                width: 420,
+                height: 540,
                 facingMode: 'environment',
                 aspectRatio: 16 / 9,
                 frameRate: 30,
               }}
-              width={1920}
-              height={1080}
+              width={420}
+              height={540}
               onUserMediaError={(error) => alert(error)}
             />
             <canvas ref={canvasRef} style={{ display: 'none' }} />
