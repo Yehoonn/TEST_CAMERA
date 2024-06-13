@@ -181,7 +181,6 @@ const Test = () => {
       style={{
         display: 'flex',
         flexDirection: 'column',
-        gap: '30px',
         width: '100vw',
         minHeight: '100vh',
         backgroundColor: '#404040',
@@ -190,7 +189,7 @@ const Test = () => {
     >
       <header
         className="header"
-        style={{ display: 'flex', marginTop: '50px', flexDirection: 'column' }}
+        style={{ display: 'flex', flexDirection: 'column' }}
       >
         {/* <button
           style={{
@@ -245,7 +244,7 @@ const Test = () => {
               display: 'flex',
               justifyContent: 'center',
               width: '95vw',
-              height: '300px',
+              height: '35vh',
             }}
           >
             {/* <div
@@ -307,7 +306,7 @@ const Test = () => {
               screenshotFormat="image/jpeg"
               videoConstraints={{
                 width: 420,
-                height: 300,
+                height: 540,
                 facingMode: 'environment',
                 aspectRatio: 16 / 9,
                 frameRate: 30,
