@@ -242,31 +242,20 @@ const Test = () => {
               audio={false}
               screenshotFormat="image/jpeg"
               videoConstraints={{
-                width: 420,
-                height: 540,
+                width: 640,
+                height: 480,
                 facingMode: 'environment',
                 aspectRatio: 16 / 9,
                 frameRate: 30,
               }}
-              width={420}
-              height={540}
+              width={640}
+              height={480}
               onUserMediaError={(error) => alert(error)}
             />
             <canvas ref={canvasRef} style={{ display: 'none' }} />
           </div>
         </article>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '10px',
-            marginTop: '20px',
-          }}
-        >
-          <div>어두운 배경에 가로로 놓아주세요.</div>
-          <div>빛 반사를 없애 주세요.</div>
-          <div>카메라 초점을 맞추고 촬영해 주세요.</div>
-        </div>
+
         <button
           style={{
             marginTop: '20px',
