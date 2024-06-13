@@ -247,7 +247,7 @@ const Test = () => {
           // width: '420px',
           // height: '540px',
           width: '100%',
-          height: '100%',
+          height: '540px',
           maxWidth: '360px',
           maxHeight: '800px',
           overflow: 'hidden',
