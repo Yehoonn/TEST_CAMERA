@@ -183,7 +183,7 @@ const Test = () => {
         flexDirection: 'column',
         gap: '30px',
         width: '100vw',
-        height: '100vh',
+        minHeight: '100vh',
         backgroundColor: '#404040',
       }}
     >
@@ -293,7 +293,14 @@ const Test = () => {
             ></div> */}
 
             <Webcam
-              style={{ zIndex: '2' }}
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                position: 'absolute',
+                top: 0,
+                left: 0,
+              }}
               ref={webcamRef}
               audio={false}
               screenshotFormat="image/jpeg"
@@ -304,8 +311,8 @@ const Test = () => {
                 aspectRatio: 16 / 9,
                 frameRate: 30,
               }}
-              width={420}
-              height={540}
+              // width={420}
+              // height={540}
               // width={240}
               // height={540}
               onUserMediaError={(error) => alert(error)}
