@@ -1,8 +1,17 @@
 import React, { useState, useRef, useEffect } from 'react';
 import imageCompression from 'browser-image-compression';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Test = () => {
   const [loading, setLoading] = useState(false);
+
+  const location = useLocation();
+
+  const navigate = useNavigate();
+
+  console.log(location);
+
+  console.log(loading);
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -61,7 +70,7 @@ const Test = () => {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    width: '100%',
+    width: '85%',
     height: '250px',
     background: `
       linear-gradient(to right, #21005D 4px, transparent 4px) 0 0,
@@ -77,20 +86,43 @@ const Test = () => {
     backgroundSize: '20px 20px',
   };
   return (
-    <>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '30px',
+        width: '100vw',
+        height: '100vh',
+      }}
+    >
       <header className="header">
         <button
+          style={{
+            marginTop: '30px',
+          }}
           type="button"
           className="btn_back"
           onClick={() => {
-            console.log('테스트');
+            if (location.state !== null) {
+              navigate(-1);
+            } else {
+              console.log('으악');
+            }
           }}
         >
           뒤로가기
         </button>
       </header>
       <main className="container type_btn" style={{ alignItems: 'baseline' }}>
-        <article className="page_licenses" style={{ width: '100%' }}>
+        <article
+          className="page_licenses"
+          style={{
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '30px',
+          }}
+        >
           <div>
             <>
               차량 예약을 위해
@@ -98,12 +130,15 @@ const Test = () => {
               <span className="point">운전면허증을 준비해 주세요.</span>
             </>
           </div>
-          <div className="box_sample" style={{ alignItems: 'center' }}>
+          <div
+            className="box_sample"
+            style={{ display: 'flex', justifyContent: 'center' }}
+          >
             <div style={cameraStyle}>
               <video
                 ref={videoRef}
                 autoPlay
-                style={{ width: '90%', alignItems: 'center' }}
+                style={{ width: '90%', height: '95%' }}
               ></video>
             </div>
             <canvas
@@ -114,14 +149,30 @@ const Test = () => {
             ></canvas>
           </div>
         </article>
-        <div>어두운 배경에 가로로 놓아주세요.</div>
-        <div>빛 반사를 없애 주세요.</div>
-        <div>카메라 초점을 맞추고 촬영해 주세요.</div>
-        <button onClick={openMobileCam} type="button" className="btn">
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '10px',
+            marginTop: '20px',
+          }}
+        >
+          <div>어두운 배경에 가로로 놓아주세요.</div>
+          <div>빛 반사를 없애 주세요.</div>
+          <div>카메라 초점을 맞추고 촬영해 주세요.</div>
+        </div>
+        <button
+          style={{
+            marginTop: '20px',
+          }}
+          onClick={openMobileCam}
+          type="button"
+          className="btn"
+        >
           운전면허증 촬영하기
         </button>
       </main>
-    </>
+    </div>
   );
 };
 export default Test;
