@@ -183,6 +183,7 @@ const Test = () => {
         flexDirection: 'column',
         gap: '30px',
         width: '100vw',
+        height: '100vh',
         backgroundColor: '#404040',
       }}
     >
@@ -217,7 +218,14 @@ const Test = () => {
       </header>
       <main
         className="container type_btn"
-        style={{ width: '100%', height: '100%', alignItems: 'baseline' }}
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-around',
+          width: '100%',
+          height: '100%',
+          alignItems: 'baseline',
+        }}
       >
         <article
           className="page_licenses"
@@ -242,7 +250,7 @@ const Test = () => {
             <div
               style={{
                 left: '-10px',
-                top: '20px',
+                top: '80px',
                 position: 'absolute',
                 width: '50px',
                 height: '50px',
@@ -253,7 +261,7 @@ const Test = () => {
             <div
               style={{
                 right: '-10px',
-                top: '20px',
+                top: '80px',
                 position: 'absolute',
                 width: '50px',
                 height: '50px',
@@ -264,7 +272,7 @@ const Test = () => {
             <div
               style={{
                 left: '-10px',
-                bottom: '20px',
+                bottom: '80px',
                 position: 'absolute',
                 width: '50px',
                 height: '50px',
@@ -275,7 +283,7 @@ const Test = () => {
             <div
               style={{
                 right: '-10px',
-                bottom: '20px',
+                bottom: '80px',
                 position: 'absolute',
                 width: '50px',
                 height: '50px',
@@ -311,6 +319,7 @@ const Test = () => {
               justifyContent: 'center',
               alignItems: 'center',
               flexDirection: 'column',
+              marginTop: '35px',
             }}
           >
             <div
