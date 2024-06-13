@@ -245,7 +245,7 @@ const Test = () => {
               display: 'flex',
               justifyContent: 'center',
               width: '95vw',
-              height: '540px',
+              height: '300px',
             }}
           >
             {/* <div
@@ -307,7 +307,7 @@ const Test = () => {
               screenshotFormat="image/jpeg"
               videoConstraints={{
                 width: 420,
-                height: 540,
+                height: 300,
                 facingMode: 'environment',
                 aspectRatio: 16 / 9,
                 frameRate: 30,
