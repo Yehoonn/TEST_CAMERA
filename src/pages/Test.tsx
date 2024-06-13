@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState, useRef, useEffect } from 'react';
-// import imageCompression from 'browser-image-compression';
+import React, { useRef, useEffect } from 'react';
 import Webcam from 'react-webcam';
 
 const Test = () => {
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
 
-  console.log(loading);
+  // console.log(loading);
 
   function getStateFromHash() {
     const hash = window.location.hash.substr(1); // '#' 제거 후 해시 값 가져오기
@@ -45,33 +44,6 @@ const Test = () => {
     }
     getCameraStream();
   }, []);
-  // const captureImage = () => {
-  //   if (canvasRef.current && videoRef.current) {
-  //     const canvas = canvasRef.current;
-  //     const context = canvas.getContext('2d');
-  //     if (context != null) {
-  //       context.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
-  //       canvas.toBlob(async (blob) => {
-  //         if (blob) {
-  //           const file = new File([blob], 'capture.png', { type: 'image/png' });
-
-  //           setLoading(true);
-  //           const compressedFile = await compressImage(file);
-
-  //           // downloadFile(compressedFile);
-
-  //           const base64: any = await blobToBase64(compressedFile);
-
-  //           const newState: any = { data: state?.data, image: base64 };
-
-  //           const hash = btoa(JSON.stringify(newState)); // state를 문자열로 변환 후 base64로 인코딩
-
-  //           window.location.href = `${state?.path?.split('#')[0]}#${hash}`;
-  //         }
-  //       }, 'image/png');
-  //     }
-  //   }
-  // };
 
   const webcamRef: any = React.useRef(null);
 
@@ -88,7 +60,7 @@ const Test = () => {
   }, [webcamRef]);
 
   const openMobileCam = () => {
-    setLoading(true);
+    // setLoading(true);
     capture();
     // captureImage();
   };
@@ -227,8 +199,6 @@ const Test = () => {
 
               const hash = btoa(JSON.stringify(newState)); // state를 문자열로 변환 후 base64로 인코딩
 
-              // window.location.href = `https://main--cozy-tanuki-0ad879.netlify.app#${hash}`;
-
               window.location.href = `${state?.path?.split('#')[0]}#${hash}`;
             } else {
               console.log('으악');
@@ -264,7 +234,7 @@ const Test = () => {
               display: 'flex',
               justifyContent: 'center',
               width: '100vw',
-              height: '600px',
+              height: '520px',
             }}
           >
             <Webcam
@@ -273,28 +243,14 @@ const Test = () => {
               screenshotFormat="image/jpeg"
               screenshotQuality={1}
               videoConstraints={{
-                width: 420,
-                height: 500,
+                width: 360,
+                height: 360,
                 facingMode: 'environment',
               }}
-              width={420}
-              height={500}
+              width={360}
+              height={360}
             />
             <canvas ref={canvasRef} style={{ display: 'none' }} />
-
-            {/* <div style={cameraStyle}>
-              <video
-                ref={videoRef}
-                autoPlay
-                style={{ width: '100%', height: '100%' }}
-              ></video>
-            </div>
-            <canvas
-              ref={canvasRef}
-              style={{ display: 'none' }}
-              width="100%"
-              height="100%"
-            ></canvas> */}
           </div>
         </article>
         <div
