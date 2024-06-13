@@ -204,12 +204,6 @@ const Test = () => {
   //   return () => clearInterval(interval);
   // }, [detectObjectInBox]);
 
-  const videoConstraints = {
-    width: 1280,
-    height: 720,
-    facingMode: 'environment',
-  };
-
   return (
     <div
       style={{
@@ -277,12 +271,13 @@ const Test = () => {
               ref={webcamRef}
               audio={false}
               screenshotFormat="image/jpeg"
-              videoConstraints={videoConstraints}
-              style={{
-                transformOrigin: 'center center',
-                width: '100%',
-                height: '100%',
+              videoConstraints={{
+                width: 320,
+                height: 400,
+                facingMode: 'environment',
               }}
+              width={320}
+              height={400}
             />
             <canvas ref={canvasRef} style={{ display: 'none' }} />
 
