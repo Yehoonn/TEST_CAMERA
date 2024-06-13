@@ -186,9 +186,13 @@ const Test = () => {
         height: '100vh',
       }}
     >
-      <header className="header" style={{ marginTop: '50px' }}>
+      <header
+        className="header"
+        style={{ display: 'flex', marginTop: '50px', flexDirection: 'column' }}
+      >
         <button
           style={{
+            height: '50px',
             marginTop: '30px',
           }}
           type="button"
@@ -210,6 +214,7 @@ const Test = () => {
         <button
           style={{
             marginTop: '20px',
+            height: '50px',
           }}
           onClick={openMobileCam}
           type="button"
