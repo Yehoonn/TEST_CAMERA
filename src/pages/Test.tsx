@@ -244,7 +244,7 @@ const Test = () => {
               position: 'relative',
               display: 'flex',
               justifyContent: 'center',
-              width: '420px',
+              width: '95vw',
               height: '300px',
             }}
           >
