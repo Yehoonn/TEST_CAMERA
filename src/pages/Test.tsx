@@ -136,77 +136,77 @@ const Test = () => {
   //   backgroundSize: '20px 20px',
   // };
 
-  const detectObjectInBox = () => {
-    if (canvasRef.current !== null) {
-      const canvas = canvasRef.current;
-      const context = canvas.getContext('2d');
+  // const detectObjectInBox = () => {
+  //   if (canvasRef.current !== null) {
+  //     const canvas = canvasRef.current;
+  //     const context = canvas.getContext('2d');
 
-      if (context !== null) {
-        context.drawImage(
-          webcamRef.current.video,
-          0,
-          0,
-          canvas.width,
-          canvas.height,
-        );
+  //     if (context !== null) {
+  //       context.drawImage(
+  //         webcamRef.current.video,
+  //         0,
+  //         0,
+  //         canvas.width,
+  //         canvas.height,
+  //       );
 
-        // 특정 박스 영역 설정 (예: 화면 중앙의 200x200 박스)
-        const boxX = canvas.width / 2 - 100;
-        const boxY = canvas.height / 2 - 100;
-        const boxWidth = 200;
-        const boxHeight = 200;
+  //       // 특정 박스 영역 설정 (예: 화면 중앙의 200x200 박스)
+  //       const boxX = canvas.width / 2 - 100;
+  //       const boxY = canvas.height / 2 - 100;
+  //       const boxWidth = 200;
+  //       const boxHeight = 200;
 
-        // 박스 내부의 픽셀 데이터 가져오기
-        const imageData = context.getImageData(boxX, boxY, boxWidth, boxHeight);
-        const data = imageData.data;
+  //       // 박스 내부의 픽셀 데이터 가져오기
+  //       const imageData = context.getImageData(boxX, boxY, boxWidth, boxHeight);
+  //       const data = imageData.data;
 
-        // 단순히 픽셀 데이터의 평균 밝기를 기준으로 물체 감지 (예시)
-        let sum = 0;
-        for (let i = 0; i < data.length; i += 4) {
-          const brightness = (data[i] + data[i + 1] + data[i + 2]) / 3;
-          sum += brightness;
-        }
-        const averageBrightness = sum / (data.length / 4);
+  //       // 단순히 픽셀 데이터의 평균 밝기를 기준으로 물체 감지 (예시)
+  //       let sum = 0;
+  //       for (let i = 0; i < data.length; i += 4) {
+  //         const brightness = (data[i] + data[i + 1] + data[i + 2]) / 3;
+  //         sum += brightness;
+  //       }
+  //       const averageBrightness = sum / (data.length / 4);
 
-        // 주변 밝기 확인을 위한 전체 이미지 밝기 계산
-        const overallImageData = context.getImageData(
-          0,
-          0,
-          canvas.width,
-          canvas.height,
-        );
-        const overallData = overallImageData.data;
+  //       // 주변 밝기 확인을 위한 전체 이미지 밝기 계산
+  //       const overallImageData = context.getImageData(
+  //         0,
+  //         0,
+  //         canvas.width,
+  //         canvas.height,
+  //       );
+  //       const overallData = overallImageData.data;
 
-        let overallSum = 0;
-        for (let i = 0; i < overallData.length; i += 4) {
-          const brightness =
-            (overallData[i] + overallData[i + 1] + overallData[i + 2]) / 3;
-          overallSum += brightness;
-        }
-        const overallAverageBrightness = overallSum / (overallData.length / 4);
+  //       let overallSum = 0;
+  //       for (let i = 0; i < overallData.length; i += 4) {
+  //         const brightness =
+  //           (overallData[i] + overallData[i + 1] + overallData[i + 2]) / 3;
+  //         overallSum += brightness;
+  //       }
+  //       const overallAverageBrightness = overallSum / (overallData.length / 4);
 
-        // 임계값을 기준으로 물체가 있는지 판단 (임계값은 상황에 따라 조정)
-        const objectThreshold = 100;
-        const ambientLightThreshold = 50;
+  //       // 임계값을 기준으로 물체가 있는지 판단 (임계값은 상황에 따라 조정)
+  //       const objectThreshold = 100;
+  //       const ambientLightThreshold = 50;
 
-        if (
-          averageBrightness < objectThreshold &&
-          overallAverageBrightness > ambientLightThreshold
-        ) {
-          capture();
-        }
-      }
-    }
-  };
+  //       if (
+  //         averageBrightness < objectThreshold &&
+  //         overallAverageBrightness > ambientLightThreshold
+  //       ) {
+  //         capture();
+  //       }
+  //     }
+  //   }
+  // };
 
-  useEffect(() => {
-    const interval = setInterval(detectObjectInBox, 1000); // 1초 간격으로 감지
-    return () => clearInterval(interval);
-  }, [detectObjectInBox]);
+  // useEffect(() => {
+  //   const interval = setInterval(detectObjectInBox, 1000); // 1초 간격으로 감지
+  //   return () => clearInterval(interval);
+  // }, [detectObjectInBox]);
 
   const videoConstraints = {
-    width: 1280,
-    height: 720,
+    width: 200,
+    height: 400,
     facingMode: 'environment',
   };
 
@@ -268,8 +268,8 @@ const Test = () => {
             <Webcam
               ref={webcamRef}
               audio={false}
-              width={600}
-              height={720}
+              width={200}
+              height={400}
               screenshotFormat="image/jpeg"
               videoConstraints={videoConstraints}
               style={{
