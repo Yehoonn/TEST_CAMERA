@@ -168,9 +168,31 @@ const Test = () => {
         }
         const averageBrightness = sum / (data.length / 4);
 
+        // 주변 밝기 확인을 위한 전체 이미지 밝기 계산
+        const overallImageData = context.getImageData(
+          0,
+          0,
+          canvas.width,
+          canvas.height,
+        );
+        const overallData = overallImageData.data;
+
+        let overallSum = 0;
+        for (let i = 0; i < overallData.length; i += 4) {
+          const brightness =
+            (overallData[i] + overallData[i + 1] + overallData[i + 2]) / 3;
+          overallSum += brightness;
+        }
+        const overallAverageBrightness = overallSum / (overallData.length / 4);
+
         // 임계값을 기준으로 물체가 있는지 판단 (임계값은 상황에 따라 조정)
-        const threshold = 100;
-        if (averageBrightness < threshold) {
+        const objectThreshold = 100;
+        const ambientLightThreshold = 50;
+
+        if (
+          averageBrightness < objectThreshold &&
+          overallAverageBrightness > ambientLightThreshold
+        ) {
           capture();
         }
       }
@@ -246,8 +268,8 @@ const Test = () => {
             <Webcam
               ref={webcamRef}
               audio={false}
-              width={1280}
-              height={320}
+              width={600}
+              height={720}
               screenshotFormat="image/jpeg"
               videoConstraints={videoConstraints}
               style={{
