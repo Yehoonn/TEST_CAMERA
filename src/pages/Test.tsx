@@ -242,12 +242,12 @@ const Test = () => {
               audio={false}
               screenshotFormat="image/jpeg"
               videoConstraints={{
-                width: 400,
-                height: 440,
+                width: { ideal: 1920 }, // 원하는 해상도 설정
+                height: { ideal: 1080 },
                 facingMode: 'environment',
               }}
               width={400}
-              height={440}
+              height={380}
             />
             <canvas ref={canvasRef} style={{ display: 'none' }} />
           </div>
