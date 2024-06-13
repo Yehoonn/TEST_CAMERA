@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useRef, useEffect, useState } from 'react';
-import { Camera } from 'react-camera-pro';
+import React, { useRef, useEffect } from 'react';
 import Webcam from 'react-webcam';
 
 const Test = () => {
@@ -51,26 +50,6 @@ const Test = () => {
   const capture = React.useCallback(() => {
     if (webcamRef.current !== null) {
       const imageSrc: any = webcamRef.current.getScreenshot();
-
-      const newState: any = { data: state?.data, image: imageSrc };
-
-      const hash = btoa(JSON.stringify(newState));
-
-      window.location.href = `${state?.path?.split('#')[0]}#${hash}`;
-    }
-  }, [webcamRef]);
-
-  const openMobileCam2 = () => {
-    // setLoading(true);
-    capture2();
-    // captureImage();
-  };
-
-  const camera: any = useRef(null);
-
-  const capture2 = React.useCallback(() => {
-    if (camera.current !== null) {
-      const imageSrc: any = camera.current.takePhoto();
 
       const newState: any = { data: state?.data, image: imageSrc };
 
@@ -197,21 +176,6 @@ const Test = () => {
   //   return () => clearInterval(interval);
   // }, [detectObjectInBox]);
 
-  const [numberOfCameras, setNumberOfCameras] = useState(0);
-  const [activeDeviceId, setActiveDeviceId] = useState<string | undefined>(
-    undefined,
-  );
-
-  useEffect(() => {
-    (async () => {
-      const devices = await navigator.mediaDevices.enumerateDevices();
-      const videoDevices = devices.filter((i) => i.kind == 'videoinput');
-      setDevices(videoDevices);
-    })();
-  });
-
-  const [devices, setDevices] = useState<MediaDeviceInfo[]>([]);
-
   return (
     <div
       style={{
@@ -219,25 +183,14 @@ const Test = () => {
         flexDirection: 'column',
         gap: '30px',
         width: '100vw',
-        height: '100vh',
+        backgroundColor: '#404040',
       }}
     >
       <header
         className="header"
         style={{ display: 'flex', marginTop: '50px', flexDirection: 'column' }}
       >
-        <select
-          onChange={(event) => {
-            setActiveDeviceId(event.target.value);
-          }}
-        >
-          {devices.map((d) => (
-            <option key={d.deviceId} value={d.deviceId}>
-              {d.label}
-            </option>
-          ))}
-        </select>
-        <button
+        {/* <button
           style={{
             height: '50px',
             marginTop: '30px',
@@ -257,39 +210,10 @@ const Test = () => {
           }}
         >
           뒤로가기
-        </button>
-        <button
-          style={{
-            marginTop: '20px',
-            height: '50px',
-          }}
-          onClick={openMobileCam}
-          type="button"
-          className="btn"
-        >
-          운전면허증 촬영하기
-        </button>
-        <button
-          style={{
-            marginTop: '20px',
-            height: '50px',
-          }}
-          onClick={() => openMobileCam2()}
-        >
-          촬영 2
-        </button>
-        <button
-          hidden={numberOfCameras <= 1}
-          style={{
-            marginTop: '20px',
-            height: '50px',
-          }}
-          onClick={() => {
-            camera.current.switchCamera();
-          }}
-        >
-          카메라 바꾸기
-        </button>
+        </button> */}
+        <div style={{ color: 'white', fontSize: '21px', fontWeight: 'bold' }}>
+          운전면허증 촬영
+        </div>
       </header>
       <main
         className="container type_btn"
@@ -305,41 +229,66 @@ const Test = () => {
             gap: '30px',
           }}
         >
-          {/* react camera pro */}
           <div
             className="box_sample"
             style={{
+              position: 'relative',
               display: 'flex',
               justifyContent: 'center',
-              width: '95vw',
-              height: '200px',
-            }}
-          >
-            <Camera
-              videoSourceDeviceId={activeDeviceId}
-              ref={camera}
-              facingMode="environment"
-              aspectRatio="cover"
-              numberOfCamerasCallback={(i) => setNumberOfCameras(i)}
-              errorMessages={{}}
-            />
-          </div>
-
-          {/* react web cam */}
-          <div
-            className="box_sample"
-            style={{
-              display: 'none',
-              justifyContent: 'center',
-              width: '100vw',
+              width: '420px',
               height: '540px',
             }}
           >
+            <div
+              style={{
+                left: '-10px',
+                top: '20px',
+                position: 'absolute',
+                width: '50px',
+                height: '50px',
+                backgroundColor: 'lightblue',
+                zIndex: 1,
+              }}
+            ></div>
+            <div
+              style={{
+                right: '-10px',
+                top: '20px',
+                position: 'absolute',
+                width: '50px',
+                height: '50px',
+                backgroundColor: 'lightblue',
+                zIndex: 1,
+              }}
+            ></div>
+            <div
+              style={{
+                left: '-10px',
+                bottom: '20px',
+                position: 'absolute',
+                width: '50px',
+                height: '50px',
+                backgroundColor: 'lightblue',
+                zIndex: 1,
+              }}
+            ></div>
+            <div
+              style={{
+                right: '-10px',
+                bottom: '20px',
+                position: 'absolute',
+                width: '50px',
+                height: '50px',
+                backgroundColor: 'lightblue',
+                zIndex: 1,
+              }}
+            ></div>
+
             <Webcam
+              style={{ zIndex: '2' }}
               ref={webcamRef}
               audio={false}
               screenshotFormat="image/jpeg"
-              screenshotQuality={1.3}
               videoConstraints={{
                 width: 420,
                 height: 540,
@@ -349,9 +298,46 @@ const Test = () => {
               }}
               width={420}
               height={540}
+              // width={240}
+              // height={540}
               onUserMediaError={(error) => alert(error)}
             />
+
             <canvas ref={canvasRef} style={{ display: 'none' }} />
+          </div>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'column',
+            }}
+          >
+            <div
+              style={{ color: 'white', fontSize: '15px', fontWeight: 'bold' }}
+            >
+              영역 안에 운전면허증을 맞추고
+              <br />
+              선명하게 보일 때 하단 버튼을 눌러
+              <br />
+              촬영해 주세요.
+            </div>
+            <div style={{ paddingBottom: '20px' }}>
+              <button
+                style={{
+                  width: '50px',
+                  marginTop: '20px',
+                  height: '50px',
+                  borderRadius: '50px',
+                  backgroundColor: 'white',
+                  paddingBottom: '20px',
+                  border: '4px solid lightgray',
+                }}
+                onClick={openMobileCam}
+                type="button"
+                className="btn"
+              ></button>
+            </div>
           </div>
         </article>
       </main>
