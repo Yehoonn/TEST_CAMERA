@@ -234,7 +234,7 @@ const Test = () => {
               display: 'flex',
               justifyContent: 'center',
               width: '100vw',
-              height: '520px',
+              height: '640px',
             }}
           >
             <Webcam
@@ -242,13 +242,13 @@ const Test = () => {
               audio={false}
               screenshotFormat="image/jpeg"
               videoConstraints={{
-                width: 420,
-                height: 720,
+                width: 460,
+                height: 640,
                 facingMode: 'environment',
                 aspectRatio: 16 / 9,
               }}
-              width={420}
-              height={720}
+              width={460}
+              height={640}
             />
             <canvas ref={canvasRef} style={{ display: 'none' }} />
           </div>
