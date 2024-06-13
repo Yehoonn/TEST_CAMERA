@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
+import { Camera } from 'react-camera-pro';
 import Webcam from 'react-webcam';
 
 const Test = () => {
@@ -50,6 +51,26 @@ const Test = () => {
   const capture = React.useCallback(() => {
     if (webcamRef.current !== null) {
       const imageSrc: any = webcamRef.current.getScreenshot();
+
+      const newState: any = { data: state?.data, image: imageSrc };
+
+      const hash = btoa(JSON.stringify(newState));
+
+      window.location.href = `${state?.path?.split('#')[0]}#${hash}`;
+    }
+  }, [webcamRef]);
+
+  const openMobileCam2 = () => {
+    // setLoading(true);
+    capture2();
+    // captureImage();
+  };
+
+  const camera: any = useRef(null);
+
+  const capture2 = React.useCallback(() => {
+    if (camera.current !== null) {
+      const imageSrc: any = camera.current.takePhoto();
 
       const newState: any = { data: state?.data, image: imageSrc };
 
@@ -175,7 +196,7 @@ const Test = () => {
   //   const interval = setInterval(detectObjectInBox, 1000); // 1초 간격으로 감지
   //   return () => clearInterval(interval);
   // }, [detectObjectInBox]);
-
+  const [numberOfCameras, setNumberOfCameras] = useState(0);
   return (
     <div
       style={{
@@ -222,6 +243,27 @@ const Test = () => {
         >
           운전면허증 촬영하기
         </button>
+        <button
+          style={{
+            marginTop: '20px',
+            height: '50px',
+          }}
+          onClick={() => openMobileCam2()}
+        >
+          촬영 2
+        </button>
+        <button
+          hidden={numberOfCameras <= 1}
+          style={{
+            marginTop: '20px',
+            height: '50px',
+          }}
+          onClick={() => {
+            camera.current.switchCamera();
+          }}
+        >
+          카메라 바꾸기
+        </button>
       </header>
       <main
         className="container type_btn"
@@ -233,13 +275,34 @@ const Test = () => {
             width: '100%',
             display: 'flex',
             flexDirection: 'column',
+            alignItems: 'center',
             gap: '30px',
           }}
         >
+          {/* react camera pro */}
           <div
             className="box_sample"
             style={{
               display: 'flex',
+              justifyContent: 'center',
+              width: '95vw',
+              height: '200px',
+            }}
+          >
+            <Camera
+              ref={camera}
+              facingMode="environment"
+              aspectRatio={16 / 9}
+              numberOfCamerasCallback={setNumberOfCameras}
+              errorMessages={{}}
+            />
+          </div>
+
+          {/* react web cam */}
+          <div
+            className="box_sample"
+            style={{
+              display: 'none',
               justifyContent: 'center',
               width: '100vw',
               height: '540px',
