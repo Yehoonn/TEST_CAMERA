@@ -244,7 +244,7 @@ const Test = () => {
               display: 'flex',
               justifyContent: 'center',
               width: '420px',
-              height: '540px',
+              height: '360px',
             }}
           >
             {/* <div
