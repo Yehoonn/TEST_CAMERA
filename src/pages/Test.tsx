@@ -242,8 +242,8 @@ const Test = () => {
               audio={false}
               screenshotFormat="image/jpeg"
               videoConstraints={{
-                width: { ideal: 1920 }, // 원하는 해상도 설정
-                height: { ideal: 1080 },
+                width: 1920,
+                height: 1080,
                 facingMode: 'environment',
               }}
               width={400}
