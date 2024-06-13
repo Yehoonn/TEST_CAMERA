@@ -185,6 +185,7 @@ const Test = () => {
         width: '100vw',
         minHeight: '100vh',
         backgroundColor: '#404040',
+        justifyContent: 'space-around',
       }}
     >
       <header
@@ -244,7 +245,7 @@ const Test = () => {
               display: 'flex',
               justifyContent: 'center',
               width: '420px',
-              height: '360px',
+              height: '300px',
             }}
           >
             {/* <div
