@@ -205,8 +205,8 @@ const Test = () => {
   // }, [detectObjectInBox]);
 
   const videoConstraints = {
-    width: 200,
-    height: 400,
+    width: { ideal: 1280 },
+    height: { ideal: 720 },
     facingMode: 'environment',
   };
 
@@ -263,17 +263,22 @@ const Test = () => {
           </div>
           <div
             className="box_sample"
-            style={{ display: 'flex', justifyContent: 'center' }}
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              width: '100%',
+              height: '25vh',
+            }}
           >
             <Webcam
               ref={webcamRef}
               audio={false}
-              width={200}
-              height={400}
               screenshotFormat="image/jpeg"
               videoConstraints={videoConstraints}
               style={{
                 transformOrigin: 'center center',
+                width: '100%',
+                height: '100%',
               }}
             />
             <canvas ref={canvasRef} style={{ display: 'none' }} />
