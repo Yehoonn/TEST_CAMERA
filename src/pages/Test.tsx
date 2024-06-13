@@ -250,7 +250,7 @@ const Test = () => {
             <div
               style={{
                 left: '-10px',
-                top: '80px',
+                top: '110px',
                 position: 'absolute',
                 width: '50px',
                 height: '50px',
@@ -261,7 +261,7 @@ const Test = () => {
             <div
               style={{
                 right: '-10px',
-                top: '80px',
+                top: '110px',
                 position: 'absolute',
                 width: '50px',
                 height: '50px',
@@ -272,7 +272,7 @@ const Test = () => {
             <div
               style={{
                 left: '-10px',
-                bottom: '80px',
+                bottom: '110px',
                 position: 'absolute',
                 width: '50px',
                 height: '50px',
@@ -283,7 +283,7 @@ const Test = () => {
             <div
               style={{
                 right: '-10px',
-                bottom: '80px',
+                bottom: '110px',
                 position: 'absolute',
                 width: '50px',
                 height: '50px',
