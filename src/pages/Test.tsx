@@ -242,8 +242,8 @@ const Test = () => {
               audio={false}
               screenshotFormat="image/jpeg"
               videoConstraints={{
-                width: 1920,
-                height: 1080,
+                width: 400,
+                height: 380,
                 facingMode: 'environment',
               }}
               width={400}
