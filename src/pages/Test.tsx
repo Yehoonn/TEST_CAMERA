@@ -1,17 +1,27 @@
 import React, { useState, useRef, useEffect } from 'react';
 import imageCompression from 'browser-image-compression';
-import { useLocation, useNavigate } from 'react-router-dom';
 
 const Test = () => {
   const [loading, setLoading] = useState(false);
 
-  const location = useLocation();
-
-  const navigate = useNavigate();
-
-  console.log(location);
-
   console.log(loading);
+
+  function getStateFromHash() {
+    const hash = window.location.hash.substr(1); // '#' 제거 후 해시 값 가져오기
+    if (hash) {
+      try {
+        const decoded = atob(hash); // Base64 디코딩
+        const state = JSON.parse(decoded); // JSON 파싱
+        return state;
+      } catch (e) {
+        console.error('Error decoding state from hash:', e);
+        return null;
+      }
+    }
+    return null;
+  }
+
+  const state = getStateFromHash();
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -39,15 +49,25 @@ const Test = () => {
         canvas.toBlob(async (blob) => {
           if (blob) {
             const file = new File([blob], 'capture.png', { type: 'image/png' });
+
             setLoading(true);
             const compressedFile = await compressImage(file);
 
-            console.log(compressedFile);
+            // downloadFile(compressedFile);
+
+            const base64: any = await blobToBase64(compressedFile);
+
+            const newState: any = { data: state?.data, image: base64 };
+
+            const hash = btoa(JSON.stringify(newState)); // state를 문자열로 변환 후 base64로 인코딩
+
+            window.location.href = `${state?.path?.split('#')[0]}#${hash}`;
           }
         }, 'image/png');
       }
     }
   };
+
   const openMobileCam = () => {
     captureImage();
   };
@@ -64,6 +84,15 @@ const Test = () => {
       console.error('Image compression error:', error);
       return file;
     }
+  };
+
+  const blobToBase64 = (blob: any) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
   };
 
   const cameraStyle = {
@@ -103,8 +132,14 @@ const Test = () => {
           type="button"
           className="btn_back"
           onClick={() => {
-            if (location.state !== null) {
-              navigate(-1);
+            if (state?.kt) {
+              const newState: any = { data: state?.data };
+
+              const hash = btoa(JSON.stringify(newState)); // state를 문자열로 변환 후 base64로 인코딩
+
+              // window.location.href = `https://main--cozy-tanuki-0ad879.netlify.app#${hash}`;
+
+              window.location.href = `${state?.path?.split('#')[0]}#${hash}`;
             } else {
               console.log('으악');
             }
