@@ -246,9 +246,11 @@ const Test = () => {
                 height: 540,
                 facingMode: 'environment',
                 aspectRatio: 16 / 9,
+                frameRate: 30,
               }}
               width={420}
               height={540}
+              onUserMediaError={(error) => alert(error)}
             />
             <canvas ref={canvasRef} style={{ display: 'none' }} />
           </div>
