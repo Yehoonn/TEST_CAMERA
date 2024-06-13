@@ -270,7 +270,7 @@ const Test = () => {
               display: 'flex',
               justifyContent: 'center',
               width: '100vw',
-              height: '60vh',
+              height: '56vw',
             }}
           >
             <Webcam
