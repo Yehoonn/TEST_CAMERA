@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useRef, useEffect } from 'react';
 import imageCompression from 'browser-image-compression';
+import Webcam from 'react-webcam';
 
 const Test = () => {
   const [loading, setLoading] = useState(false);
@@ -44,80 +45,103 @@ const Test = () => {
     }
     getCameraStream();
   }, []);
-  const captureImage = () => {
-    if (canvasRef.current && videoRef.current) {
-      const canvas = canvasRef.current;
-      const context = canvas.getContext('2d');
-      if (context != null) {
-        context.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
-        canvas.toBlob(async (blob) => {
-          if (blob) {
-            const file = new File([blob], 'capture.png', { type: 'image/png' });
+  // const captureImage = () => {
+  //   if (canvasRef.current && videoRef.current) {
+  //     const canvas = canvasRef.current;
+  //     const context = canvas.getContext('2d');
+  //     if (context != null) {
+  //       context.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
+  //       canvas.toBlob(async (blob) => {
+  //         if (blob) {
+  //           const file = new File([blob], 'capture.png', { type: 'image/png' });
 
-            setLoading(true);
-            const compressedFile = await compressImage(file);
+  //           setLoading(true);
+  //           const compressedFile = await compressImage(file);
 
-            // downloadFile(compressedFile);
+  //           // downloadFile(compressedFile);
 
-            const base64: any = await blobToBase64(compressedFile);
+  //           const base64: any = await blobToBase64(compressedFile);
 
-            const newState: any = { data: state?.data, image: base64 };
+  //           const newState: any = { data: state?.data, image: base64 };
 
-            const hash = btoa(JSON.stringify(newState)); // state를 문자열로 변환 후 base64로 인코딩
+  //           const hash = btoa(JSON.stringify(newState)); // state를 문자열로 변환 후 base64로 인코딩
 
-            window.location.href = `${state?.path?.split('#')[0]}#${hash}`;
-          }
-        }, 'image/png');
-      }
+  //           window.location.href = `${state?.path?.split('#')[0]}#${hash}`;
+  //         }
+  //       }, 'image/png');
+  //     }
+  //   }
+  // };
+
+  const webcamRef: any = React.useRef(null);
+
+  const capture = React.useCallback(() => {
+    if (webcamRef.current !== null) {
+      const imageSrc: any = webcamRef.current.getScreenshot();
+
+      const newState: any = { data: state?.data, image: imageSrc };
+
+      const hash = btoa(JSON.stringify(newState));
+
+      window.location.href = `${state?.path?.split('#')[0]}#${hash}`;
     }
-  };
+  }, [webcamRef]);
 
   const openMobileCam = () => {
-    captureImage();
+    setLoading(true);
+    capture();
+    // captureImage();
   };
-  const compressImage = async (file: File) => {
-    const options = {
-      maxSizeMB: 0.2,
-      maxWidthOrHeight: 1024,
-      useWebWorker: true,
-    };
-    try {
-      const compressedFile = await imageCompression(file, options);
-      return compressedFile;
-    } catch (error) {
-      console.error('Image compression error:', error);
-      return file;
-    }
+  // const compressImage = async (file: File) => {
+  //   const options = {
+  //     maxSizeMB: 0.2,
+  //     maxWidthOrHeight: 1024,
+  //     useWebWorker: true,
+  //   };
+  //   try {
+  //     const compressedFile = await imageCompression(file, options);
+  //     return compressedFile;
+  //   } catch (error) {
+  //     console.error('Image compression error:', error);
+  //     return file;
+  //   }
+  // };
+
+  // const blobToBase64 = (blob: any) => {
+  //   return new Promise((resolve, reject) => {
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => resolve(reader.result);
+  //     reader.onerror = reject;
+  //     reader.readAsDataURL(blob);
+  //   });
+  // };
+
+  // const cameraStyle = {
+  //   display: 'flex',
+  //   alignItems: 'center',
+  //   justifyContent: 'center',
+  //   width: '100vw',
+  //   height: '350px',
+  //   background: `
+  //     linear-gradient(to right, #21005D 4px, transparent 4px) 0 0,
+  //     linear-gradient(to right, #21005D 4px, transparent 4px) 0 100%,
+  //     linear-gradient(to left, #21005D 4px, transparent 4px) 100% 0,
+  //     linear-gradient(to left, #21005D 4px, transparent 4px) 100% 100%,
+  //     linear-gradient(to bottom, #21005D 4px, transparent 4px) 0 0,
+  //     linear-gradient(to bottom, #21005D 4px, transparent 4px) 100% 0,
+  //     linear-gradient(to top, #21005D 4px, transparent 4px) 0 100%,
+  //     linear-gradient(to top, #21005D 4px, transparent 4px) 100% 100%
+  //   `,
+  //   backgroundRepeat: 'no-repeat',
+  //   backgroundSize: '20px 20px',
+  // };
+
+  const videoConstraints = {
+    width: 1280,
+    height: 720,
+    facingMode: 'environment',
   };
 
-  const blobToBase64 = (blob: any) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onloadend = () => resolve(reader.result);
-      reader.onerror = reject;
-      reader.readAsDataURL(blob);
-    });
-  };
-
-  const cameraStyle = {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100vw',
-    height: '350px',
-    background: `
-      linear-gradient(to right, #21005D 4px, transparent 4px) 0 0,
-      linear-gradient(to right, #21005D 4px, transparent 4px) 0 100%,
-      linear-gradient(to left, #21005D 4px, transparent 4px) 100% 0,
-      linear-gradient(to left, #21005D 4px, transparent 4px) 100% 100%,
-      linear-gradient(to bottom, #21005D 4px, transparent 4px) 0 0,
-      linear-gradient(to bottom, #21005D 4px, transparent 4px) 100% 0,
-      linear-gradient(to top, #21005D 4px, transparent 4px) 0 100%,
-      linear-gradient(to top, #21005D 4px, transparent 4px) 100% 100%
-    `,
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: '20px 20px',
-  };
   return (
     <div
       style={{
@@ -173,7 +197,16 @@ const Test = () => {
             className="box_sample"
             style={{ display: 'flex', justifyContent: 'center' }}
           >
-            <div style={cameraStyle}>
+            <Webcam
+              ref={webcamRef}
+              audio={false}
+              width={1280}
+              height={720}
+              screenshotFormat="image/jpeg"
+              videoConstraints={videoConstraints}
+            />
+
+            {/* <div style={cameraStyle}>
               <video
                 ref={videoRef}
                 autoPlay
@@ -185,7 +218,7 @@ const Test = () => {
               style={{ display: 'none' }}
               width="100%"
               height="100%"
-            ></canvas>
+            ></canvas> */}
           </div>
         </article>
         <div
