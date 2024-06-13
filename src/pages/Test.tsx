@@ -207,6 +207,16 @@ const Test = () => {
         >
           뒤로가기
         </button>
+        <button
+          style={{
+            marginTop: '20px',
+          }}
+          onClick={openMobileCam}
+          type="button"
+          className="btn"
+        >
+          운전면허증 촬영하기
+        </button>
       </header>
       <main
         className="container type_btn"
@@ -221,13 +231,6 @@ const Test = () => {
             gap: '30px',
           }}
         >
-          <div>
-            <>
-              차량 예약을 위해
-              <br />
-              <span className="point">운전면허증을 준비해 주세요.</span>
-            </>
-          </div>
           <div
             className="box_sample"
             style={{
@@ -255,18 +258,6 @@ const Test = () => {
             <canvas ref={canvasRef} style={{ display: 'none' }} />
           </div>
         </article>
-
-        <button
-          style={{
-            marginTop: '20px',
-            zIndex: 9999,
-          }}
-          onClick={openMobileCam}
-          type="button"
-          className="btn"
-        >
-          운전면허증 촬영하기
-        </button>
       </main>
     </div>
   );
