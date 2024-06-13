@@ -183,7 +183,7 @@ const Test = () => {
         flexDirection: 'column',
         gap: '30px',
         width: '100vw',
-        height: '100vh',
+        minHeight: '100vh',
         backgroundColor: '#404040',
       }}
     >
@@ -216,7 +216,7 @@ const Test = () => {
           운전면허증 촬영
         </div>
       </header>
-      <main
+      {/* <main
         className="container type_btn"
         style={{
           display: 'flex',
@@ -231,125 +231,139 @@ const Test = () => {
           className="page_licenses"
           style={{
             width: '100%',
+            height: '30%',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             gap: '30px',
           }}
-        >
-          <div
-            className="box_sample"
-            style={{
-              position: 'relative',
-              display: 'flex',
-              justifyContent: 'center',
-              width: '420px',
-              height: '540px',
-            }}
-          >
-            <div
-              style={{
-                left: '-10px',
-                top: '95px',
-                position: 'absolute',
-                width: '50px',
-                height: '50px',
-                backgroundColor: 'lightblue',
-                zIndex: 1,
-              }}
-            ></div>
-            <div
-              style={{
-                right: '-10px',
-                top: '95px',
-                position: 'absolute',
-                width: '50px',
-                height: '50px',
-                backgroundColor: 'lightblue',
-                zIndex: 1,
-              }}
-            ></div>
-            <div
-              style={{
-                left: '-10px',
-                bottom: '95px',
-                position: 'absolute',
-                width: '50px',
-                height: '50px',
-                backgroundColor: 'lightblue',
-                zIndex: 1,
-              }}
-            ></div>
-            <div
-              style={{
-                right: '-10px',
-                bottom: '95px',
-                position: 'absolute',
-                width: '50px',
-                height: '50px',
-                backgroundColor: 'lightblue',
-                zIndex: 1,
-              }}
-            ></div>
+        > */}
+      <div
+        className="box_sample"
+        style={{
+          // position: 'relative',
+          // display: 'flex',
+          // justifyContent: 'center',
+          // width: '420px',
+          // height: '540px',
+          width: '100%',
+          height: '100%',
+          maxWidth: '360px',
+          maxHeight: '800px',
+          overflow: 'hidden',
+          position: 'relative',
+        }}
+      >
+        <div
+          style={{
+            left: '-10px',
+            top: '95px',
+            position: 'absolute',
+            width: '50px',
+            height: '50px',
+            backgroundColor: 'lightblue',
+            zIndex: 1,
+          }}
+        ></div>
+        <div
+          style={{
+            right: '-10px',
+            top: '95px',
+            position: 'absolute',
+            width: '50px',
+            height: '50px',
+            backgroundColor: 'lightblue',
+            zIndex: 1,
+          }}
+        ></div>
+        <div
+          style={{
+            left: '-10px',
+            bottom: '95px',
+            position: 'absolute',
+            width: '50px',
+            height: '50px',
+            backgroundColor: 'lightblue',
+            zIndex: 1,
+          }}
+        ></div>
+        <div
+          style={{
+            right: '-10px',
+            bottom: '95px',
+            position: 'absolute',
+            width: '50px',
+            height: '50px',
+            backgroundColor: 'lightblue',
+            zIndex: 1,
+          }}
+        ></div>
 
-            <Webcam
-              style={{ zIndex: '2' }}
-              ref={webcamRef}
-              audio={false}
-              screenshotFormat="image/jpeg"
-              videoConstraints={{
-                width: 420,
-                height: 540,
-                facingMode: 'environment',
-                aspectRatio: 16 / 9,
-                frameRate: 30,
-              }}
-              width={420}
-              height={540}
-              // width={240}
-              // height={540}
-              onUserMediaError={(error) => alert(error)}
-            />
+        <Webcam
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            zIndex: 2,
+          }}
+          ref={webcamRef}
+          audio={false}
+          screenshotFormat="image/jpeg"
+          videoConstraints={{
+            width: 1920,
+            height: 1080,
+            facingMode: 'environment',
+            aspectRatio: 16 / 9,
+            frameRate: 30,
+          }}
+          // width={420}
 
-            <canvas ref={canvasRef} style={{ display: 'none' }} />
-          </div>
-          <div
+          // height={540}
+          // width={240}
+          // height={540}
+          onUserMediaError={(error) => alert(error)}
+        />
+
+        <canvas ref={canvasRef} style={{ display: 'none' }} />
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'column',
+          marginTop: '35px',
+        }}
+      >
+        <div style={{ color: 'white', fontSize: '15px', fontWeight: 'bold' }}>
+          영역 안에 운전면허증을 맞추고
+          <br />
+          선명하게 보일 때 하단 버튼을 눌러
+          <br />
+          촬영해 주세요.
+        </div>
+        <div style={{ paddingBottom: '20px' }}>
+          <button
             style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'column',
-              marginTop: '35px',
+              width: '50px',
+              marginTop: '20px',
+              height: '50px',
+              borderRadius: '50px',
+              backgroundColor: 'white',
+              paddingBottom: '20px',
+              border: '4px solid lightgray',
             }}
-          >
-            <div
-              style={{ color: 'white', fontSize: '15px', fontWeight: 'bold' }}
-            >
-              영역 안에 운전면허증을 맞추고
-              <br />
-              선명하게 보일 때 하단 버튼을 눌러
-              <br />
-              촬영해 주세요.
-            </div>
-            <div style={{ paddingBottom: '20px' }}>
-              <button
-                style={{
-                  width: '50px',
-                  marginTop: '20px',
-                  height: '50px',
-                  borderRadius: '50px',
-                  backgroundColor: 'white',
-                  paddingBottom: '20px',
-                  border: '4px solid lightgray',
-                }}
-                onClick={openMobileCam}
-                type="button"
-                className="btn"
-              ></button>
-            </div>
-          </div>
-        </article>
-      </main>
+            onClick={openMobileCam}
+            type="button"
+            className="btn"
+          ></button>
+        </div>
+      </div>
+      {/* </article>
+      </main> */}
     </div>
   );
 };
