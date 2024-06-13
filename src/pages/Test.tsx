@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useRef, useEffect } from 'react';
-import imageCompression from 'browser-image-compression';
+// import imageCompression from 'browser-image-compression';
 import Webcam from 'react-webcam';
 
 const Test = () => {
@@ -26,7 +26,7 @@ const Test = () => {
   const state = getStateFromHash();
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  // const canvasRef = useRef<HTMLCanvasElement | null>(null);
   useEffect(() => {
     async function getCameraStream() {
       try {
