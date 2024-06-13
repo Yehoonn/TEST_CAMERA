@@ -26,7 +26,7 @@ const Test = () => {
   const state = getStateFromHash();
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  // const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
   useEffect(() => {
     async function getCameraStream() {
       try {
@@ -136,6 +136,52 @@ const Test = () => {
   //   backgroundSize: '20px 20px',
   // };
 
+  const detectObjectInBox = () => {
+    if (canvasRef.current !== null) {
+      const canvas = canvasRef.current;
+      const context = canvas.getContext('2d');
+
+      if (context !== null) {
+        context.drawImage(
+          webcamRef.current.video,
+          0,
+          0,
+          canvas.width,
+          canvas.height,
+        );
+
+        // 특정 박스 영역 설정 (예: 화면 중앙의 200x200 박스)
+        const boxX = canvas.width / 2 - 100;
+        const boxY = canvas.height / 2 - 100;
+        const boxWidth = 200;
+        const boxHeight = 200;
+
+        // 박스 내부의 픽셀 데이터 가져오기
+        const imageData = context.getImageData(boxX, boxY, boxWidth, boxHeight);
+        const data = imageData.data;
+
+        // 단순히 픽셀 데이터의 평균 밝기를 기준으로 물체 감지 (예시)
+        let sum = 0;
+        for (let i = 0; i < data.length; i += 4) {
+          const brightness = (data[i] + data[i + 1] + data[i + 2]) / 3;
+          sum += brightness;
+        }
+        const averageBrightness = sum / (data.length / 4);
+
+        // 임계값을 기준으로 물체가 있는지 판단 (임계값은 상황에 따라 조정)
+        const threshold = 100;
+        if (averageBrightness < threshold) {
+          capture();
+        }
+      }
+    }
+  };
+
+  useEffect(() => {
+    const interval = setInterval(detectObjectInBox, 1000); // 1초 간격으로 감지
+    return () => clearInterval(interval);
+  }, [detectObjectInBox]);
+
   const videoConstraints = {
     width: 1280,
     height: 720,
@@ -201,13 +247,14 @@ const Test = () => {
               ref={webcamRef}
               audio={false}
               width={1280}
-              height={720}
+              height={320}
               screenshotFormat="image/jpeg"
               videoConstraints={videoConstraints}
               style={{
                 transformOrigin: 'center center',
               }}
             />
+            <canvas ref={canvasRef} style={{ display: 'none' }} />
 
             {/* <div style={cameraStyle}>
               <video
