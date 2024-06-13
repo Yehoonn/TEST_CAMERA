@@ -184,7 +184,6 @@ const Test = () => {
         width: '100vw',
         minHeight: '100vh',
         backgroundColor: '#404040',
-        justifyContent: 'space-around',
       }}
     >
       <header
@@ -212,7 +211,14 @@ const Test = () => {
         >
           뒤로가기
         </button> */}
-        <div style={{ color: 'white', fontSize: '21px', fontWeight: 'bold' }}>
+        <div
+          style={{
+            color: 'white',
+            fontSize: '21px',
+            fontWeight: 'bold',
+            paddingTop: '5vh',
+          }}
+        >
           운전면허증 촬영
         </div>
       </header>
@@ -235,6 +241,7 @@ const Test = () => {
             flexDirection: 'column',
             alignItems: 'center',
             gap: '30px',
+            paddingTop: '10vh',
           }}
         >
           <div
@@ -330,7 +337,12 @@ const Test = () => {
             }}
           >
             <div
-              style={{ color: 'white', fontSize: '15px', fontWeight: 'bold' }}
+              style={{
+                color: 'white',
+                fontSize: '15px',
+                fontWeight: 'bold',
+                paddingTop: '5vh',
+              }}
             >
               영역 안에 운전면허증을 맞추고
               <br />
@@ -338,7 +350,7 @@ const Test = () => {
               <br />
               촬영해 주세요.
             </div>
-            <div style={{ paddingBottom: '20px' }}>
+            <div style={{ paddingBottom: '20px', paddingTop: '5vh' }}>
               <button
                 style={{
                   width: '50px',
