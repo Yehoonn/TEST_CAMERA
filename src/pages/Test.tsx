@@ -242,12 +242,13 @@ const Test = () => {
               audio={false}
               screenshotFormat="image/jpeg"
               videoConstraints={{
-                width: 640,
-                height: 680,
+                width: 420,
+                height: 720,
                 facingMode: 'environment',
+                aspectRatio: 16 / 9,
               }}
-              width={640}
-              height={680}
+              width={420}
+              height={720}
             />
             <canvas ref={canvasRef} style={{ display: 'none' }} />
           </div>
