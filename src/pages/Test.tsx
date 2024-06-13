@@ -205,8 +205,8 @@ const Test = () => {
   // }, [detectObjectInBox]);
 
   const videoConstraints = {
-    width: { ideal: 1280 },
-    height: { ideal: 720 },
+    width: 1280,
+    height: 720,
     facingMode: 'environment',
   };
 
@@ -220,7 +220,7 @@ const Test = () => {
         height: '100vh',
       }}
     >
-      <header className="header">
+      <header className="header" style={{ marginTop: '50px' }}>
         <button
           style={{
             marginTop: '30px',
@@ -244,7 +244,10 @@ const Test = () => {
           뒤로가기
         </button>
       </header>
-      <main className="container type_btn" style={{ alignItems: 'baseline' }}>
+      <main
+        className="container type_btn"
+        style={{ width: '100%', height: '100%', alignItems: 'baseline' }}
+      >
         <article
           className="page_licenses"
           style={{
@@ -266,7 +269,7 @@ const Test = () => {
             style={{
               display: 'flex',
               justifyContent: 'center',
-              width: '100%',
+              width: '100vw',
               height: '25vh',
             }}
           >
