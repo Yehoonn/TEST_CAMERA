@@ -46,16 +46,17 @@ const TestAndroid = () => {
             device.label.toLowerCase().includes('back'),
         );
         setDevices(videoDevices);
+
         if (videoDevices.length > 0) {
           setSelectedDeviceId(
             videoDevices?.filter((value: any) => {
-              value.includes('0');
+              value.label.includes('0');
             })[0].deviceId,
           );
 
           alert(
             videoDevices?.filter((value: any) => {
-              value.includes('0');
+              value.label.includes('0');
             })[0].label,
           );
           setChange(true);
