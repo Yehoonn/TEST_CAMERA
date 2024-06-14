@@ -2,7 +2,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import Webcam from 'react-webcam';
 
-const Test = () => {
+const TestAndroid = () => {
   // const [loading, setLoading] = useState(false);
 
   // console.log(loading);
@@ -84,121 +84,8 @@ const Test = () => {
   }, [webcamRef]);
 
   const openMobileCam = () => {
-    // setLoading(true);
     capture();
-    // captureImage();
   };
-  // const compressImage = async (file: File) => {
-  //   const options = {
-  //     maxSizeMB: 0.2,
-  //     maxWidthOrHeight: 1024,
-  //     useWebWorker: true,
-  //   };
-  //   try {
-  //     const compressedFile = await imageCompression(file, options);
-  //     return compressedFile;
-  //   } catch (error) {
-  //     console.error('Image compression error:', error);
-  //     return file;
-  //   }
-  // };
-
-  // const blobToBase64 = (blob: any) => {
-  //   return new Promise((resolve, reject) => {
-  //     const reader = new FileReader();
-  //     reader.onloadend = () => resolve(reader.result);
-  //     reader.onerror = reject;
-  //     reader.readAsDataURL(blob);
-  //   });
-  // };
-
-  // const cameraStyle = {
-  //   display: 'flex',
-  //   alignItems: 'center',
-  //   justifyContent: 'center',
-  //   width: '100vw',
-  //   height: '350px',
-  //   background: `
-  //     linear-gradient(to right, #21005D 4px, transparent 4px) 0 0,
-  //     linear-gradient(to right, #21005D 4px, transparent 4px) 0 100%,
-  //     linear-gradient(to left, #21005D 4px, transparent 4px) 100% 0,
-  //     linear-gradient(to left, #21005D 4px, transparent 4px) 100% 100%,
-  //     linear-gradient(to bottom, #21005D 4px, transparent 4px) 0 0,
-  //     linear-gradient(to bottom, #21005D 4px, transparent 4px) 100% 0,
-  //     linear-gradient(to top, #21005D 4px, transparent 4px) 0 100%,
-  //     linear-gradient(to top, #21005D 4px, transparent 4px) 100% 100%
-  //   `,
-  //   backgroundRepeat: 'no-repeat',
-  //   backgroundSize: '20px 20px',
-  // };
-
-  // const detectObjectInBox = () => {
-  //   if (canvasRef.current !== null) {
-  //     const canvas = canvasRef.current;
-  //     const context = canvas.getContext('2d');
-
-  //     if (context !== null) {
-  //       context.drawImage(
-  //         webcamRef.current.video,
-  //         0,
-  //         0,
-  //         canvas.width,
-  //         canvas.height,
-  //       );
-
-  //       // 특정 박스 영역 설정 (예: 화면 중앙의 200x200 박스)
-  //       const boxX = canvas.width / 2 - 100;
-  //       const boxY = canvas.height / 2 - 100;
-  //       const boxWidth = 200;
-  //       const boxHeight = 200;
-
-  //       // 박스 내부의 픽셀 데이터 가져오기
-  //       const imageData = context.getImageData(boxX, boxY, boxWidth, boxHeight);
-  //       const data = imageData.data;
-
-  //       // 단순히 픽셀 데이터의 평균 밝기를 기준으로 물체 감지 (예시)
-  //       let sum = 0;
-  //       for (let i = 0; i < data.length; i += 4) {
-  //         const brightness = (data[i] + data[i + 1] + data[i + 2]) / 3;
-  //         sum += brightness;
-  //       }
-  //       const averageBrightness = sum / (data.length / 4);
-
-  //       // 주변 밝기 확인을 위한 전체 이미지 밝기 계산
-  //       const overallImageData = context.getImageData(
-  //         0,
-  //         0,
-  //         canvas.width,
-  //         canvas.height,
-  //       );
-  //       const overallData = overallImageData.data;
-
-  //       let overallSum = 0;
-  //       for (let i = 0; i < overallData.length; i += 4) {
-  //         const brightness =
-  //           (overallData[i] + overallData[i + 1] + overallData[i + 2]) / 3;
-  //         overallSum += brightness;
-  //       }
-  //       const overallAverageBrightness = overallSum / (overallData.length / 4);
-
-  //       // 임계값을 기준으로 물체가 있는지 판단 (임계값은 상황에 따라 조정)
-  //       const objectThreshold = 100;
-  //       const ambientLightThreshold = 50;
-
-  //       if (
-  //         averageBrightness < objectThreshold &&
-  //         overallAverageBrightness > ambientLightThreshold
-  //       ) {
-  //         capture();
-  //       }
-  //     }
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   const interval = setInterval(detectObjectInBox, 1000); // 1초 간격으로 감지
-  //   return () => clearInterval(interval);
-  // }, [detectObjectInBox]);
 
   const [change, setChange] = useState(false);
 
@@ -226,27 +113,6 @@ const Test = () => {
         className="header"
         style={{ display: 'flex', flexDirection: 'column' }}
       >
-        {/* <button
-          style={{
-            height: '50px',
-            marginTop: '30px',
-          }}
-          type="button"
-          className="btn_back"
-          onClick={() => {
-            if (state?.kt) {
-              const newState: any = { data: state?.data };
-
-              const hash = btoa(JSON.stringify(newState)); // state를 문자열로 변환 후 base64로 인코딩
-
-              window.location.href = `${state?.path?.split('#')[0]}#${hash}`;
-            } else {
-              console.log('으악');
-            }
-          }}
-        >
-          뒤로가기
-        </button> */}
         <div
           style={{
             color: 'white',
@@ -313,51 +179,6 @@ const Test = () => {
               height: '35vh',
             }}
           >
-            {/* <div
-              style={{
-                left: '-10px',
-                top: '100px',
-                position: 'absolute',
-                width: '50px',
-                height: '50px',
-                backgroundColor: 'lightblue',
-                zIndex: 1,
-              }}
-            ></div>
-            <div
-              style={{
-                right: '-10px',
-                top: '100px',
-                position: 'absolute',
-                width: '50px',
-                height: '50px',
-                backgroundColor: 'lightblue',
-                zIndex: 1,
-              }}
-            ></div>
-            <div
-              style={{
-                left: '-10px',
-                bottom: '80px',
-                position: 'absolute',
-                width: '50px',
-                height: '50px',
-                backgroundColor: 'lightblue',
-                zIndex: 1,
-              }}
-            ></div>
-            <div
-              style={{
-                right: '-10px',
-                bottom: '80px',
-                position: 'absolute',
-                width: '50px',
-                height: '50px',
-                backgroundColor: 'lightblue',
-                zIndex: 1,
-              }}
-            ></div> */}
-
             {change === false && (
               <Webcam
                 style={{
@@ -379,10 +200,6 @@ const Test = () => {
                   frameRate: 30,
                   deviceId: selectedDeviceId,
                 }}
-                // width={420}
-                // height={540}
-                // width={240}
-                // height={540}
                 onUserMediaError={(error) => alert(error)}
               />
             )}
@@ -434,4 +251,4 @@ const Test = () => {
     </div>
   );
 };
-export default Test;
+export default TestAndroid;
