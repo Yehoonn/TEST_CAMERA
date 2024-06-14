@@ -208,6 +208,10 @@ const Test = () => {
     }
   }, [change]);
 
+  useEffect(() => {
+    alert(selectedDeviceId);
+  }, [selectedDeviceId]);
+
   return (
     <div
       style={{
