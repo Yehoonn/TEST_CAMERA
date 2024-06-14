@@ -7,7 +7,7 @@ const TestAndroid = () => {
 
   // console.log(loading);
 
-  const [devices, setDevices] = useState([]);
+  const [devices, setDevices]: any = useState([]);
   const [selectedDeviceId, setSelectedDeviceId]: any = useState('');
 
   function getStateFromHash() {
@@ -43,22 +43,13 @@ const TestAndroid = () => {
         const videoDevices: any = devices.filter(
           (device) =>
             device.kind === 'videoinput' &&
-            device.label.toLowerCase().includes('back'),
+            device.label.toLowerCase().includes('back') &&
+            device.label.includes('0'),
         );
         setDevices(videoDevices);
 
         if (videoDevices.length > 0) {
-          alert(
-            videoDevices?.filter((value: any) => {
-              value.label.includes('0');
-            })[0].label,
-          );
-
-          setSelectedDeviceId(
-            videoDevices?.filter((value: any) => {
-              value.label.includes('0');
-            })[0].deviceId,
-          );
+          setSelectedDeviceId(videoDevices[0].deviceId);
 
           setChange(true);
         }
@@ -106,9 +97,9 @@ const TestAndroid = () => {
     }
   }, [change]);
 
-  // useEffect(() => {
-  //   // alert(selectedDeviceId);
-  // }, [selectedDeviceId]);
+  useEffect(() => {
+    alert(`id : ${selectedDeviceId} name : ${devices[0]?.label}`);
+  }, [selectedDeviceId]);
 
   return (
     <div
@@ -142,7 +133,7 @@ const TestAndroid = () => {
             gap: '10px',
           }}
         >
-          {devices?.map((value: any, index) => {
+          {devices?.map((value: any, index: number) => {
             return (
               <button
                 key={index}
