@@ -48,6 +48,7 @@ const Test = () => {
 
     const getDevices = async () => {
       const devices = await navigator.mediaDevices.enumerateDevices();
+
       const videoDevices: any = devices.filter(
         (device) =>
           device.kind === 'videoinput' &&
@@ -56,6 +57,7 @@ const Test = () => {
       setDevices(videoDevices);
       if (videoDevices.length > 0) {
         setSelectedDeviceId(videoDevices[0].deviceId);
+        setChange(true);
       }
     };
 
@@ -198,6 +200,14 @@ const Test = () => {
   //   return () => clearInterval(interval);
   // }, [detectObjectInBox]);
 
+  const [change, setChange] = useState(false);
+
+  useEffect(() => {
+    if (change === true) {
+      setChange(false);
+    }
+  }, [change]);
+
   return (
     <div
       style={{
@@ -258,6 +268,7 @@ const Test = () => {
                 style={{ color: 'white' }}
                 onClick={() => {
                   selectedDeviceId(value?.deviceId);
+                  setChange(true);
                 }}
               >
                 {value?.label}
@@ -343,32 +354,34 @@ const Test = () => {
               }}
             ></div> */}
 
-            <Webcam
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                position: 'absolute',
-                top: 0,
-                left: 0,
-              }}
-              ref={webcamRef}
-              audio={false}
-              screenshotFormat="image/jpeg"
-              videoConstraints={{
-                width: 420,
-                height: 540,
-                facingMode: 'environment',
-                aspectRatio: 16 / 9,
-                frameRate: 30,
-                deviceId: selectedDeviceId,
-              }}
-              // width={420}
-              // height={540}
-              // width={240}
-              // height={540}
-              onUserMediaError={(error) => alert(error)}
-            />
+            {change === false && (
+              <Webcam
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                }}
+                ref={webcamRef}
+                audio={false}
+                screenshotFormat="image/jpeg"
+                videoConstraints={{
+                  width: 420,
+                  height: 540,
+                  facingMode: 'environment',
+                  aspectRatio: 16 / 9,
+                  frameRate: 30,
+                  deviceId: selectedDeviceId,
+                }}
+                // width={420}
+                // height={540}
+                // width={240}
+                // height={540}
+                onUserMediaError={(error) => alert(error)}
+              />
+            )}
 
             <canvas ref={canvasRef} style={{ display: 'none' }} />
           </div>
