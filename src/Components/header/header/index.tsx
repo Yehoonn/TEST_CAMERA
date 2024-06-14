@@ -56,7 +56,17 @@ export default function Header({
         </button>
       )}
       {useCancel && (
-        <Link to="/" className="btn_cancel">
+        <Link
+          to="/"
+          className="btn_cancel"
+          onClick={(e: any) => {
+            e.preventDefault();
+
+            if (onCancel) {
+              onCancel();
+            }
+          }}
+        >
           취소
         </Link>
       )}
