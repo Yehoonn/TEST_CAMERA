@@ -48,17 +48,18 @@ const TestAndroid = () => {
         setDevices(videoDevices);
 
         if (videoDevices.length > 0) {
+          alert(
+            videoDevices?.filter((value: any) => {
+              value.label.includes('0');
+            })[0].label,
+          );
+
           setSelectedDeviceId(
             videoDevices?.filter((value: any) => {
               value.label.includes('0');
             })[0].deviceId,
           );
 
-          alert(
-            videoDevices?.filter((value: any) => {
-              value.label.includes('0');
-            })[0].label,
-          );
           setChange(true);
         }
 
@@ -151,7 +152,7 @@ const TestAndroid = () => {
                   setChange(true);
                 }}
               >
-                {value?.label}
+                {value?.label?.includes('0') ? '0' : '1'}
               </button>
             );
           })}
