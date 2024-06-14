@@ -228,7 +228,6 @@ const TestAndroid = () => {
             <div style={{ paddingBottom: '20px', paddingTop: '5vh' }}>
               <button
                 style={{
-                  display: 'none',
                   width: '50px',
                   marginTop: '20px',
                   height: '50px',
