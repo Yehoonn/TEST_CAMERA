@@ -1,16 +1,14 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import TestIOS from 'pages/TestIOS';
-import TestAndroid from 'pages/TestAndroid';
+import Camera from 'pages/Camera';
 
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
         <Routes>
-          <Route path="/android" Component={TestAndroid}></Route>
-          <Route path="/ios" Component={TestIOS}></Route>
+          <Route path="/" Component={Camera}></Route>
         </Routes>
       </div>
     </BrowserRouter>
