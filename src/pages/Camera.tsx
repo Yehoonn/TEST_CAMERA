@@ -4,7 +4,6 @@ import Webcam from 'react-webcam';
 import Tesseract from 'tesseract.js';
 
 const TestAndroid = () => {
-  const [devices, setDevices]: any = useState([]);
   const [selectedDeviceId, setSelectedDeviceId]: any = useState('');
 
   function getStateFromHash() {
@@ -36,8 +35,6 @@ const TestAndroid = () => {
         });
 
         const devices = await navigator.mediaDevices.enumerateDevices();
-
-        setDevices(devices);
 
         const videoDevices: any = devices.filter(
           (device) =>
@@ -86,19 +83,27 @@ const TestAndroid = () => {
       } = await Tesseract.recognize(imageSrc, 'kor');
 
       // 정규표현식을 이용하여 "숫자-숫자-숫자-숫자" 형식을 찾음
-      const regex = /\d{2}-\d{2}-\d{6}-\d{2}/g;
-      const matches = response.match(regex);
+      const numberRegex = /\d{2}-\d{2}-\d{6}-\d{2}/g;
+      const dateRegex = /\d{4}\.\d{2}\.\d{2}/g;
+      const licenseRegex = /면[허혀]증/g;
+      const renewalRegex = /갱[신슬]기간/g;
+
+      let count = 0;
+
+      response.match(numberRegex) === null ? (count += 0) : (count += 1);
+      response.match(dateRegex) === null ? (count += 0) : (count += 1);
+      response.match(licenseRegex) === null ? (count += 0) : (count += 1);
+      response.match(renewalRegex) === null ? (count += 0) : (count += 1);
+
+      console.log(count);
 
       // 결과 출력
-      if (matches) {
+      if (count >= 2) {
         const newState: any = { data: state?.data, image: imageSrc };
-
         const hash = btoa(JSON.stringify(newState));
-
         window.location.href = `${state?.path?.split('#')[0]}#${hash}`;
       } else {
         capture();
-        console.log('No matching patterns found.');
       }
     }
   }, [webcamRef]);
@@ -121,13 +126,6 @@ const TestAndroid = () => {
         className="header"
         style={{ display: 'flex', flexDirection: 'column' }}
       >
-        {devices.map((value: any, index: any) => {
-          return (
-            <div key={index}>
-              {value?.label} {value?.kind}
-            </div>
-          );
-        })}
         <div
           style={{
             color: 'white',
