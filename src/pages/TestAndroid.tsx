@@ -3,7 +3,6 @@ import React, { useRef, useEffect, useState } from 'react';
 import Webcam from 'react-webcam';
 
 const TestAndroid = () => {
-  const [devices, setDevices]: any = useState([]);
   const [selectedDeviceId, setSelectedDeviceId]: any = useState('');
 
   function getStateFromHash() {
@@ -48,8 +47,6 @@ const TestAndroid = () => {
             device.kind === 'videoinput' &&
             device.label.toLowerCase().includes('back'),
         );
-
-        setDevices(videoDevices);
 
         if (videoDevices.length > 0) {
           setSelectedDeviceId(videoDevices[0].deviceId);
