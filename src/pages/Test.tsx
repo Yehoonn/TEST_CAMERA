@@ -8,7 +8,7 @@ const Test = () => {
   // console.log(loading);
 
   const [devices, setDevices] = useState([]);
-  const [selectedDeviceId, setSelectedDeviceId] = useState('');
+  const [selectedDeviceId, setSelectedDeviceId]: any = useState('');
 
   function getStateFromHash() {
     const hash = window.location.hash.substr(1); // '#' 제거 후 해시 값 가져오기
@@ -49,7 +49,9 @@ const Test = () => {
     const getDevices = async () => {
       const devices = await navigator.mediaDevices.enumerateDevices();
       const videoDevices: any = devices.filter(
-        (device) => device.kind === 'videoinput',
+        (device) =>
+          device.kind === 'videoinput' &&
+          device.label.toLowerCase().includes('back'),
       );
       setDevices(videoDevices);
       if (videoDevices.length > 0) {
@@ -251,9 +253,15 @@ const Test = () => {
         >
           {devices?.map((value: any, index) => {
             return (
-              <div key={index} style={{ color: 'white' }}>
-                <div>{value?.label}</div>
-              </div>
+              <button
+                key={index}
+                style={{ color: 'white' }}
+                onClick={() => {
+                  selectedDeviceId(value?.deviceId);
+                }}
+              >
+                {value?.label}
+              </button>
             );
           })}
         </div>
@@ -353,6 +361,7 @@ const Test = () => {
                 facingMode: 'environment',
                 aspectRatio: 16 / 9,
                 frameRate: 30,
+                deviceId: selectedDeviceId,
               }}
               // width={420}
               // height={540}
