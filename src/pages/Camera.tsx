@@ -59,7 +59,7 @@ const TestAndroid = () => {
 
         setTimeout(() => {
           openMobileCam();
-        }, 3000);
+        }, 1000);
 
         if (videoRef.current) {
           (videoRef.current as HTMLVideoElement).srcObject = stream;
@@ -95,10 +95,8 @@ const TestAndroid = () => {
       response.match(licenseRegex) === null ? (count += 0) : (count += 1);
       response.match(renewalRegex) === null ? (count += 0) : (count += 1);
 
-      console.log(count);
-
       // 결과 출력
-      if (count >= 2) {
+      if (count >= 1) {
         const newState: any = { data: state?.data, image: imageSrc };
         const hash = btoa(JSON.stringify(newState));
         window.location.href = `${state?.path?.split('#')[0]}#${hash}`;
