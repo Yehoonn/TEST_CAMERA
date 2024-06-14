@@ -47,9 +47,21 @@ const TestAndroid = () => {
         );
         setDevices(videoDevices);
         if (videoDevices.length > 0) {
-          setSelectedDeviceId(videoDevices[0].deviceId);
+          setSelectedDeviceId(
+            videoDevices?.filter((value: any) => {
+              value.includes('0');
+            })[0].deviceId,
+          );
+
+          alert(
+            videoDevices?.filter((value: any) => {
+              value.includes('0');
+            })[0].label,
+          );
           setChange(true);
         }
+
+        stream.getTracks().forEach((track) => track.stop());
 
         if (videoRef.current) {
           (videoRef.current as HTMLVideoElement).srcObject = stream;
@@ -92,9 +104,9 @@ const TestAndroid = () => {
     }
   }, [change]);
 
-  useEffect(() => {
-    alert(selectedDeviceId);
-  }, [selectedDeviceId]);
+  // useEffect(() => {
+  //   // alert(selectedDeviceId);
+  // }, [selectedDeviceId]);
 
   return (
     <div
