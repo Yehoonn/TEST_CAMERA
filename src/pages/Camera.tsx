@@ -4,6 +4,7 @@ import Webcam from 'react-webcam';
 import Tesseract from 'tesseract.js';
 
 const TestAndroid = () => {
+  const [devices, setDevices]: any = useState([]);
   const [selectedDeviceId, setSelectedDeviceId]: any = useState('');
 
   function getStateFromHash() {
@@ -35,6 +36,8 @@ const TestAndroid = () => {
         });
 
         const devices = await navigator.mediaDevices.enumerateDevices();
+
+        setDevices(devices);
 
         const videoDevices: any = devices.filter(
           (device) =>
@@ -118,6 +121,13 @@ const TestAndroid = () => {
         className="header"
         style={{ display: 'flex', flexDirection: 'column' }}
       >
+        {devices.map((value: any, index: any) => {
+          return (
+            <div key={index}>
+              {value?.label} {value?.kind}
+            </div>
+          );
+        })}
         <div
           style={{
             color: 'white',
