@@ -38,6 +38,19 @@ const TestAndroid = () => {
           },
         });
 
+        const devices = await navigator.mediaDevices.enumerateDevices();
+
+        const videoDevices: any = devices.filter(
+          (device) =>
+            device.kind === 'videoinput' &&
+            device.label.toLowerCase().includes('back'),
+        );
+        setDevices(videoDevices);
+        if (videoDevices.length > 0) {
+          setSelectedDeviceId(videoDevices[0].deviceId);
+          setChange(true);
+        }
+
         if (videoRef.current) {
           (videoRef.current as HTMLVideoElement).srcObject = stream;
         }
@@ -46,22 +59,6 @@ const TestAndroid = () => {
       }
     }
 
-    const getDevices = async () => {
-      const devices = await navigator.mediaDevices.enumerateDevices();
-
-      const videoDevices: any = devices.filter(
-        (device) =>
-          device.kind === 'videoinput' &&
-          device.label.toLowerCase().includes('back'),
-      );
-      setDevices(videoDevices);
-      if (videoDevices.length > 0) {
-        setSelectedDeviceId(videoDevices[0].deviceId);
-        setChange(true);
-      }
-    };
-
-    getDevices();
     getCameraStream();
   }, []);
 
