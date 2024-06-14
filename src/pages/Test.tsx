@@ -1,11 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import Webcam from 'react-webcam';
 
 const Test = () => {
   // const [loading, setLoading] = useState(false);
 
   // console.log(loading);
+
+  const [devices, setDevices] = useState([]);
+  const [selectedDeviceId, setSelectedDeviceId] = useState('');
 
   function getStateFromHash() {
     const hash = window.location.hash.substr(1); // '#' 제거 후 해시 값 가져오기
@@ -42,8 +45,25 @@ const Test = () => {
         console.error('Error accessing camera: ', err);
       }
     }
+
+    const getDevices = async () => {
+      const devices = await navigator.mediaDevices.enumerateDevices();
+      const videoDevices: any = devices.filter(
+        (device) => device.kind === 'videoinput',
+      );
+      setDevices(videoDevices);
+      if (videoDevices.length > 0) {
+        setSelectedDeviceId(videoDevices[0].deviceId);
+      }
+    };
+
+    getDevices();
     getCameraStream();
   }, []);
+
+  console.log(devices);
+
+  console.log(selectedDeviceId);
 
   const webcamRef: any = React.useRef(null);
 
@@ -220,6 +240,22 @@ const Test = () => {
           }}
         >
           운전면허증 촬영
+        </div>
+        <div
+          style={{
+            marginTop: '10px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '10px',
+          }}
+        >
+          {devices?.map((value: any, index) => {
+            return (
+              <div key={index} style={{ color: 'white' }}>
+                <div>{value?.label}</div>
+              </div>
+            );
+          })}
         </div>
       </header>
       <main
