@@ -147,7 +147,7 @@ const TestAndroid = () => {
               display: 'flex',
               justifyContent: 'center',
               width: '95vw',
-              height: '35vh',
+              height: '212px',
             }}
           >
             {selectedDeviceId !== '' && (
