@@ -3,10 +3,6 @@ import React, { useRef, useEffect, useState } from 'react';
 import Webcam from 'react-webcam';
 
 const TestAndroid = () => {
-  // const [loading, setLoading] = useState(false);
-
-  // console.log(loading);
-
   const [devices, setDevices]: any = useState([]);
   const [selectedDeviceId, setSelectedDeviceId]: any = useState('');
 
@@ -46,12 +42,19 @@ const TestAndroid = () => {
             device.label.toLowerCase().includes('back') &&
             device.label.includes('0'),
         );
+
+        const videoDevices2: any = devices.filter(
+          (device) =>
+            device.kind === 'videoinput' &&
+            device.label.toLowerCase().includes('back'),
+        );
+
         setDevices(videoDevices);
 
         if (videoDevices.length > 0) {
           setSelectedDeviceId(videoDevices[0].deviceId);
-
-          setChange(true);
+        } else {
+          setSelectedDeviceId(videoDevices2[0]?.deviceId);
         }
 
         stream.getTracks().forEach((track) => track.stop());
@@ -66,10 +69,6 @@ const TestAndroid = () => {
 
     getCameraStream();
   }, []);
-
-  console.log(devices);
-
-  console.log(selectedDeviceId);
 
   const webcamRef: any = React.useRef(null);
 
@@ -88,18 +87,6 @@ const TestAndroid = () => {
   const openMobileCam = () => {
     capture();
   };
-
-  const [change, setChange] = useState(false);
-
-  useEffect(() => {
-    if (change === true) {
-      setChange(false);
-    }
-  }, [change]);
-
-  useEffect(() => {
-    alert(`id : ${selectedDeviceId} name : ${devices[0]?.label}`);
-  }, [selectedDeviceId]);
 
   return (
     <div
@@ -132,22 +119,7 @@ const TestAndroid = () => {
             flexDirection: 'column',
             gap: '10px',
           }}
-        >
-          {devices?.map((value: any, index: number) => {
-            return (
-              <button
-                key={index}
-                style={{ color: 'black', fontWeight: 'bold', height: '30px' }}
-                onClick={() => {
-                  setSelectedDeviceId(value?.deviceId);
-                  setChange(true);
-                }}
-              >
-                {value?.label?.includes('0') ? '0' : '1'}
-              </button>
-            );
-          })}
-        </div>
+        ></div>
       </header>
       <main
         className="container type_btn"
@@ -181,7 +153,7 @@ const TestAndroid = () => {
               height: '35vh',
             }}
           >
-            {change === false && (
+            {selectedDeviceId !== '' && (
               <Webcam
                 style={{
                   width: '100%',
