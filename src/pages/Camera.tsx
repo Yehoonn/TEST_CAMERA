@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useRef, useEffect, useState } from 'react';
 import Webcam from 'react-webcam';
+import Tesseract from 'tesseract.js';
 
 const TestAndroid = () => {
   const [selectedDeviceId, setSelectedDeviceId]: any = useState('');
@@ -56,6 +57,10 @@ const TestAndroid = () => {
 
         stream.getTracks().forEach((track) => track.stop());
 
+        setTimeout(() => {
+          openMobileCam();
+        }, 3000);
+
         if (videoRef.current) {
           (videoRef.current as HTMLVideoElement).srcObject = stream;
         }
@@ -69,15 +74,29 @@ const TestAndroid = () => {
 
   const webcamRef: any = React.useRef(null);
 
-  const capture = React.useCallback(() => {
+  const capture = React.useCallback(async () => {
     if (webcamRef.current !== null) {
       const imageSrc: any = webcamRef.current.getScreenshot();
 
-      const newState: any = { data: state?.data, image: imageSrc };
+      const {
+        data: { text: response },
+      } = await Tesseract.recognize(imageSrc, 'kor');
 
-      const hash = btoa(JSON.stringify(newState));
+      // 정규표현식을 이용하여 "숫자-숫자-숫자-숫자" 형식을 찾음
+      const regex = /\d{2}-\d{2}-\d{6}-\d{2}/g;
+      const matches = response.match(regex);
 
-      window.location.href = `${state?.path?.split('#')[0]}#${hash}`;
+      // 결과 출력
+      if (matches) {
+        const newState: any = { data: state?.data, image: imageSrc };
+
+        const hash = btoa(JSON.stringify(newState));
+
+        window.location.href = `${state?.path?.split('#')[0]}#${hash}`;
+      } else {
+        capture();
+        console.log('No matching patterns found.');
+      }
     }
   }, [webcamRef]);
 
@@ -203,6 +222,7 @@ const TestAndroid = () => {
             <div style={{ paddingBottom: '20px', paddingTop: '5vh' }}>
               <button
                 style={{
+                  display: 'none',
                   width: '50px',
                   marginTop: '20px',
                   height: '50px',
