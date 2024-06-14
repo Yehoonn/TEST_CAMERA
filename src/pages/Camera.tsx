@@ -260,7 +260,10 @@ const TestAndroid = () => {
         onCancel={btnCancel}
       />
       <main className="container type_camera">
-        <article className="page_licenses camera-wrap">
+        <article
+          className="page_licenses camera-wrap"
+          style={{ alignItems: 'center' }}
+        >
           <p className="camera_disc">
             영역 안에 운전면허증을 맞추고 <br />
             선명하게 보일 때 <br />
