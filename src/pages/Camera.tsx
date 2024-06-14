@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useRef, useEffect, useState } from 'react';
+import Header from '../Components/header/header';
 import Webcam from 'react-webcam';
 import Tesseract from 'tesseract.js';
+import { Link } from 'react-router-dom';
 
 const TestAndroid = () => {
   const [selectedDeviceId, setSelectedDeviceId]: any = useState('');
@@ -110,71 +112,177 @@ const TestAndroid = () => {
     capture();
   };
 
+  const btnCancel = () => {
+    window.location.href = `${state?.path?.split('#')[0]}`;
+  };
+
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        width: '100vw',
-        minHeight: '100vh',
-        backgroundColor: '#404040',
-      }}
-    >
-      <header
-        className="header"
-        style={{ display: 'flex', flexDirection: 'column' }}
-      >
-        <div
-          style={{
-            color: 'white',
-            fontSize: '21px',
-            fontWeight: 'bold',
-            paddingTop: '5vh',
-          }}
-        >
-          운전면허증 촬영
-        </div>
-        <div
-          style={{
-            marginTop: '10px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '10px',
-          }}
-        ></div>
-      </header>
-      <main
-        className="container type_btn"
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-around',
-          width: '100%',
-          height: '100%',
-          alignItems: 'baseline',
-        }}
-      >
-        <article
-          className="page_licenses"
-          style={{
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '30px',
-            paddingTop: '10vh',
-          }}
-        >
+    // <div
+    //   style={{
+    //     display: 'flex',
+    //     flexDirection: 'column',
+    //     width: '100vw',
+    //     minHeight: '100vh',
+    //     backgroundColor: '#404040',
+    //   }}
+    // >
+    //   <header
+    //     className="header"
+    //     style={{ display: 'flex', flexDirection: 'column' }}
+    //   >
+    //     <div
+    //       style={{
+    //         color: 'white',
+    //         fontSize: '21px',
+    //         fontWeight: 'bold',
+    //         paddingTop: '5vh',
+    //       }}
+    //     >
+    //       운전면허증 촬영
+    //     </div>
+    //     <div
+    //       style={{
+    //         marginTop: '10px',
+    //         display: 'flex',
+    //         flexDirection: 'column',
+    //         gap: '10px',
+    //       }}
+    //     ></div>
+    //   </header>
+    //   <main
+    //     className="container type_btn"
+    //     style={{
+    //       display: 'flex',
+    //       flexDirection: 'column',
+    //       justifyContent: 'space-around',
+    //       width: '100%',
+    //       height: '100%',
+    //       alignItems: 'baseline',
+    //     }}
+    //   >
+    //     <article
+    //       className="page_licenses"
+    //       style={{
+    //         width: '100%',
+    //         display: 'flex',
+    //         flexDirection: 'column',
+    //         alignItems: 'center',
+    //         gap: '30px',
+    //         paddingTop: '10vh',
+    //       }}
+    //     >
+    //       <div
+    //         className="box_sample"
+    //         style={{
+    //           position: 'relative',
+    //           display: 'flex',
+    //           justifyContent: 'center',
+    //           width: '420px',
+    //           height: '260px',
+    //         }}
+    //       >
+    //         {selectedDeviceId !== '' && (
+    //           <Webcam
+    //             style={{
+    //               width: '100%',
+    //               height: '100%',
+    //               objectFit: 'cover',
+    //               position: 'absolute',
+    //               top: 0,
+    //               left: 0,
+    //             }}
+    //             ref={webcamRef}
+    //             audio={false}
+    //             screenshotFormat="image/jpeg"
+    //             videoConstraints={{
+    //               width: 420,
+    //               height: 540,
+    //               facingMode: 'environment',
+    //               aspectRatio: 16 / 9,
+    //               frameRate: 30,
+    //               deviceId: selectedDeviceId,
+    //             }}
+    //             onUserMediaError={(error) => alert(error)}
+    //           />
+    //         )}
+
+    //         <canvas ref={canvasRef} style={{ display: 'none' }} />
+    //       </div>
+    //       <div
+    //         style={{
+    //           display: 'flex',
+    //           justifyContent: 'center',
+    //           alignItems: 'center',
+    //           flexDirection: 'column',
+    //           marginTop: '35px',
+    //         }}
+    //       >
+    //         <div
+    //           style={{
+    //             color: 'white',
+    //             fontSize: '15px',
+    //             fontWeight: 'bold',
+    //             paddingTop: '5vh',
+    //           }}
+    //         >
+    //           영역 안에 운전면허증을 맞추고
+    //           <br />
+    //           선명하게 보일 때 하단 버튼을 눌러
+    //           <br />
+    //           촬영해 주세요.
+    //         </div>
+    //         <div style={{ paddingBottom: '20px', paddingTop: '5vh' }}>
+    //           <button
+    //             style={{
+    //               width: '50px',
+    //               marginTop: '20px',
+    //               height: '50px',
+    //               borderRadius: '50px',
+    //               backgroundColor: 'white',
+    //               paddingBottom: '20px',
+    //               border: '4px solid lightgray',
+    //             }}
+    //             onClick={openMobileCam}
+    //             type="button"
+    //             className="btn"
+    //           ></button>
+    //         </div>
+    //       </div>
+    //     </article>
+    //   </main>
+    // </div>
+
+    <>
+      <Header
+        className="type_camera"
+        title="운전면허증 촬영"
+        useCancel={true}
+        onCancel={btnCancel}
+      />
+      <main className="container type_camera">
+        <article className="page_licenses camera-wrap">
+          <p className="camera_disc">
+            영역 안에 운전면허증을 맞추고 <br />
+            선명하게 보일 때 <br />
+            하단 버튼을 눌러 촬영해 주세요.
+          </p>
+
           <div
-            className="box_sample"
+            className="camera_area"
             style={{
+              background: '#000',
               position: 'relative',
               display: 'flex',
               justifyContent: 'center',
-              width: '420px',
+              width: '95vw',
               height: '260px',
             }}
           >
+            <span style={{ zIndex: 2 }}></span>
+            <span style={{ zIndex: 2 }}></span>
+            <span style={{ zIndex: 2 }}></span>
+            <span style={{ zIndex: 2 }}></span>
+
             {selectedDeviceId !== '' && (
               <Webcam
                 style={{
@@ -199,52 +307,43 @@ const TestAndroid = () => {
                 onUserMediaError={(error) => alert(error)}
               />
             )}
-
             <canvas ref={canvasRef} style={{ display: 'none' }} />
           </div>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'column',
-              marginTop: '35px',
+        </article>
+
+        <div className="btn-area">
+          <Link
+            to="/"
+            className=""
+            onClick={(e: any) => {
+              e.preventDefault();
+
+              window.location.href = `${state?.path?.split('#')[0]}/confirm`;
             }}
           >
-            <div
-              style={{
-                color: 'white',
-                fontSize: '15px',
-                fontWeight: 'bold',
-                paddingTop: '5vh',
-              }}
+            직접입력
+          </Link>
+          <button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="65"
+              height="65"
+              viewBox="0 0 65 65"
+              fill="none"
             >
-              영역 안에 운전면허증을 맞추고
-              <br />
-              선명하게 보일 때 하단 버튼을 눌러
-              <br />
-              촬영해 주세요.
-            </div>
-            <div style={{ paddingBottom: '20px', paddingTop: '5vh' }}>
-              <button
-                style={{
-                  width: '50px',
-                  marginTop: '20px',
-                  height: '50px',
-                  borderRadius: '50px',
-                  backgroundColor: 'white',
-                  paddingBottom: '20px',
-                  border: '4px solid lightgray',
-                }}
-                onClick={openMobileCam}
-                type="button"
-                className="btn"
-              ></button>
-            </div>
-          </div>
-        </article>
+              <circle
+                cx="32.5"
+                cy="32.6777"
+                r="29.5"
+                fill="#0E0A1A"
+                stroke="#6750A4"
+                strokeWidth="5"
+              />
+            </svg>
+          </button>
+        </div>
       </main>
-    </div>
+    </>
   );
 };
 export default TestAndroid;
