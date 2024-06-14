@@ -108,8 +108,22 @@ const TestAndroid = () => {
     }
   }, [webcamRef]);
 
+  const captureClick = React.useCallback(async () => {
+    if (webcamRef.current !== null) {
+      const imageSrc: any = webcamRef.current.getScreenshot();
+
+      const newState: any = { data: state?.data, image: imageSrc };
+      const hash = btoa(JSON.stringify(newState));
+      window.location.href = `${state?.path?.split('#')[0]}#${hash}`;
+    }
+  }, [webcamRef]);
+
   const openMobileCam = () => {
     capture();
+  };
+
+  const openMobileCamClick = () => {
+    captureClick();
   };
 
   const btnCancel = () => {
@@ -326,7 +340,7 @@ const TestAndroid = () => {
           >
             직접입력
           </Link>
-          <button>
+          <button onClick={openMobileCamClick}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="65"
