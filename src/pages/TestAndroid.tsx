@@ -146,7 +146,7 @@ const TestAndroid = () => {
               position: 'relative',
               display: 'flex',
               justifyContent: 'center',
-              width: '95vw',
+              width: '420px',
               height: '260px',
             }}
           >
