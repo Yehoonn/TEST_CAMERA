@@ -271,7 +271,7 @@ const Test = () => {
                 key={index}
                 style={{ color: 'white' }}
                 onClick={() => {
-                  selectedDeviceId(value?.deviceId);
+                  setSelectedDeviceId(value?.deviceId);
                   setChange(true);
                 }}
               >
