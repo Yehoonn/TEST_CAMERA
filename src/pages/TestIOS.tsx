@@ -96,7 +96,7 @@ const TestAndroid = () => {
   }, [change]);
 
   useEffect(() => {
-    alert(selectedDeviceId);
+    alert('아이폰입니다');
   }, [selectedDeviceId]);
 
   return (
