@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useRef, useEffect, useState } from 'react';
-import Webcam from 'react-webcam';
+import Camera from 'react-camera-ios';
 
 const TestAndroid = () => {
   // const [loading, setLoading] = useState(false);
@@ -73,7 +73,7 @@ const TestAndroid = () => {
 
   const capture = React.useCallback(() => {
     if (webcamRef.current !== null) {
-      const imageSrc: any = webcamRef.current.getScreenshot();
+      const imageSrc: any = webcamRef.current.onTakePhoto();
 
       const newState: any = { data: state?.data, image: imageSrc };
 
@@ -135,7 +135,7 @@ const TestAndroid = () => {
             return (
               <button
                 key={index}
-                style={{ color: 'white' }}
+                style={{ color: 'black', fontWeight: 'bold', height: '30px' }}
                 onClick={() => {
                   setSelectedDeviceId(value?.deviceId);
                   setChange(true);
@@ -180,27 +180,12 @@ const TestAndroid = () => {
             }}
           >
             {change === false && (
-              <Webcam
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                }}
+              <Camera
                 ref={webcamRef}
-                audio={false}
-                screenshotFormat="image/jpeg"
-                videoConstraints={{
-                  width: 420,
-                  height: 540,
-                  facingMode: 'environment',
-                  aspectRatio: 16 / 9,
-                  frameRate: 30,
-                  deviceId: selectedDeviceId,
-                }}
-                onUserMediaError={(error) => alert(error)}
+                device="mobile"
+                facingMode="environment"
+                placement="cover"
+                onError={(error) => alert(error)}
               />
             )}
 

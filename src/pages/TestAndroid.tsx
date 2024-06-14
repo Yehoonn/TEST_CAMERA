@@ -135,7 +135,7 @@ const TestAndroid = () => {
             return (
               <button
                 key={index}
-                style={{ color: 'white' }}
+                style={{ color: 'black', fontWeight: 'bold', height: '30px' }}
                 onClick={() => {
                   setSelectedDeviceId(value?.deviceId);
                   setChange(true);
