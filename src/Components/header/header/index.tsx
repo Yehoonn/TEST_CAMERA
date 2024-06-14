@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import cx from 'classnames';
 import { ReactComponent as IconBack } from 'assets/icons/icon_back.svg';
 import { Link } from 'react-router-dom';
