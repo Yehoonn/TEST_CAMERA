@@ -100,6 +100,8 @@ const TestAndroid = () => {
       response.match(licenseRegex) === null ? (count += 0) : (count += 1);
       response.match(renewalRegex) === null ? (count += 0) : (count += 1);
 
+      alert(`count = ${count}, data = ${response}`);
+
       // 결과 출력
       if (count >= 1) {
         const newState: any = { data: state?.data, image: imageSrc };
