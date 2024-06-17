@@ -118,7 +118,7 @@ const TestAndroid = () => {
 
       const newState: any = { data: state?.data, image: imageSrc };
       const hash = btoa(JSON.stringify(newState));
-      window.location.href = `${state?.path?.split('#')[0]}#${hash}`;
+      window.location.href = `${state?.path?.split('#')[0]}/confirm#${hash}`;
     }
   }, [webcamRef]);
 
