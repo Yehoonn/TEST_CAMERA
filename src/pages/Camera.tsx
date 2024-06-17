@@ -25,7 +25,7 @@ const TestAndroid = () => {
 
   const state = getStateFromHash();
 
-  const videoRef = useRef<HTMLVideoElement | null>(null);
+  // const videoRef = useRef<HTMLVideoElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   useEffect(() => {
     async function getCameraStream() {
@@ -39,6 +39,8 @@ const TestAndroid = () => {
               facingMode: 'environment', // 후방 카메라 사용 설정
             },
           });
+
+          console.log(stream);
 
           localStorage.setItem('cameraPermission', 'granted');
         }
