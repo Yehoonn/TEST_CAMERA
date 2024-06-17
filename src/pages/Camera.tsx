@@ -30,11 +30,15 @@ const TestAndroid = () => {
   useEffect(() => {
     async function getCameraStream() {
       try {
+        // const permissionStatus = localStorage.getItem('cameraPermission');
+
         const stream = await navigator.mediaDevices.getUserMedia({
           video: {
             facingMode: 'environment', // 후방 카메라 사용 설정
           },
         });
+
+        localStorage.setItem('cameraPermission', 'granted');
 
         const devices = await navigator.mediaDevices.enumerateDevices();
 
