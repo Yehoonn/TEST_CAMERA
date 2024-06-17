@@ -104,7 +104,8 @@ const TestAndroid = () => {
       if (count >= 1) {
         const newState: any = { data: state?.data, image: imageSrc };
         const hash = btoa(JSON.stringify(newState));
-        window.location.href = `${state?.path?.split('#')[0]}#${hash}`;
+
+        window.location.href = `${state?.path?.split('#')[0]}/confirm#${hash}`;
       } else {
         capture();
       }
