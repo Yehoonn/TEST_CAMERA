@@ -25,27 +25,19 @@ const TestAndroid = () => {
 
   const state = getStateFromHash();
 
-  // const videoRef = useRef<HTMLVideoElement | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   useEffect(() => {
     async function getCameraStream() {
       try {
-        const permissionStatus = localStorage.getItem('cameraPermission');
+        // const permissionStatus = localStorage.getItem('cameraPermission');
 
-        alert(permissionStatus);
-
-        if (permissionStatus === 'granted') {
-        } else {
-          const stream = await navigator.mediaDevices.getUserMedia({
-            video: {
-              facingMode: 'environment', // 후방 카메라 사용 설정
-            },
-          });
-
-          console.log(stream);
-
-          localStorage.setItem('cameraPermission', 'granted');
-        }
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: {
+            facingMode: 'environment', // 후방 카메라 사용 설정
+          },
+        });
+        // localStorage.setItem('cameraPermission', 'granted');
 
         const devices = await navigator.mediaDevices.enumerateDevices();
 
@@ -68,15 +60,15 @@ const TestAndroid = () => {
           setSelectedDeviceId(videoDevices2[0]?.deviceId);
         }
 
-        // stream.getTracks().forEach((track) => track.stop());
+        stream.getTracks().forEach((track) => track.stop());
 
         setTimeout(() => {
           openMobileCam();
         }, 1000);
 
-        // if (videoRef.current) {
-        //   (videoRef.current as HTMLVideoElement).srcObject = stream;
-        // }
+        if (videoRef.current) {
+          (videoRef.current as HTMLVideoElement).srcObject = stream;
+        }
       } catch (err) {
         console.error('Error accessing camera: ', err);
       }
