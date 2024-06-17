@@ -32,6 +32,8 @@ const TestAndroid = () => {
       try {
         const permissionStatus = localStorage.getItem('cameraPermission');
 
+        alert(permissionStatus);
+
         if (permissionStatus === 'granted') {
         } else {
           const stream = await navigator.mediaDevices.getUserMedia({
