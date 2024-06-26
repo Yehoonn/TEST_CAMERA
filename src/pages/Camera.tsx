@@ -4,6 +4,7 @@ import Header from '../Components/header/header';
 import Webcam from 'react-webcam';
 import Tesseract from 'tesseract.js';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const TestAndroid = () => {
   const [selectedDeviceId, setSelectedDeviceId]: any = useState('');
@@ -28,6 +29,30 @@ const TestAndroid = () => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   useEffect(() => {
+    let oilData: any;
+    let evData: any;
+
+    axios
+      .post(
+        'https://www.opinet.co.kr/api/avgAllPrice.do?out=json&code=F240603167',
+        null,
+      )
+      .then((response: any) => {
+        oilData = response;
+      })
+      .catch((error) => {
+        oilData = error;
+      });
+
+    axios
+      .get('https://chargeinfo.ksga.org/ws/tariff/charger/roam/average', {})
+      .then((response) => {
+        evData = response;
+      })
+      .catch((error) => {
+        evData = error;
+      });
+
     async function getCameraStream() {
       try {
         // const permissionStatus = localStorage.getItem('cameraPermission');
