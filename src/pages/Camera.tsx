@@ -39,6 +39,7 @@ const TestAndroid = () => {
       )
       .then((response: any) => {
         oilData = response;
+        console.log(oilData);
       })
       .catch((error) => {
         oilData = error;
@@ -48,6 +49,7 @@ const TestAndroid = () => {
       .get('https://chargeinfo.ksga.org/ws/tariff/charger/roam/average', {})
       .then((response) => {
         evData = response;
+        console.log(evData);
       })
       .catch((error) => {
         evData = error;
@@ -132,7 +134,7 @@ const TestAndroid = () => {
 
         window.location.href = `${state?.path?.split('#')[0]}/confirm#${hash}`;
       } else {
-        capture();
+        // capture();
       }
     }
   }, [webcamRef]);
